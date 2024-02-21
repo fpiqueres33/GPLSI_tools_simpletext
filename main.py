@@ -40,6 +40,7 @@ def index():
             use_numeros = request.form.get('useNumero') == 'on'
             use_romanos = request.form.get('useRomanos') == 'on'
             use_superlativos = request.form.get('useSuperlativos') == 'on'
+            use_abreviaturas = request.form.get('useAbreviaturas') == 'on'
 
             #Funciones sintácticas
             use_complejos = request.form.get('useComplejos') == 'on'
@@ -48,7 +49,7 @@ def index():
 
             # Aquí se procesa el texto con las opciones seleccionadas
             result_text, detecciones = process_simplify(input_text, use_adverbios, use_complejos, use_numeros, use_romanos,
-                                           use_superlativos, use_impersonal, use_nominalizacion)
+                                           use_superlativos, use_abreviaturas, use_impersonal, use_nominalizacion)
 
             result_text += "\n\nElementos detectados:\n" + str(detecciones)
 
@@ -75,13 +76,15 @@ def index():
 
 
 
-def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_superlativos, use_complejos, use_impersonal, use_nominalizacion):
+def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_superlativos, use_abreviaturas,
+                     use_complejos, use_impersonal, use_nominalizacion):
     # Configurar las opciones para API_Lexico y API_Sintactico
     opciones_lexico = {
         "habilitar_adverbios": use_adverbios,
         "habilitar_superlativos": use_superlativos,
         "habilitar_numeros": use_numeros,
-        "habilitar_romanos": use_romanos
+        "habilitar_romanos": use_romanos,
+        "habilitar_complejos": use_complejos
     }
 
     opciones_sintactico = {
@@ -95,6 +98,7 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
     use_numeros = request.form.get('useNumero') == 'on'
     use_romanos = request.form.get('useRomanos') == 'on'
     use_superlativos = request.form.get('useSuperlativos') == 'on'
+    use_abreviaturas = request.form.get('useAbreviaturas') == 'on'
 
     # Funciones sintácticas
     use_complejos = request.form.get('useComplejos') == 'on'
@@ -103,7 +107,7 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
 
     # Crear instancias de API_Lexico y API_Sintactico
     api_lexico = API_Lexico(habilitar_adverbios=use_adverbios, habilitar_superlativos=use_superlativos,
-                            habilitar_numeros=use_numeros, habilitar_romanos=use_romanos)
+                            habilitar_numeros=use_numeros, habilitar_romanos=use_romanos, habilitar_abreviaturas=use_abreviaturas)
 
     api_sintactico = API_Sintactico(habilitar_nominalizacion=use_nominalizacion,  # O cualquier valor por defecto que desees
                                     habilitar_impersonales=use_impersonal,  # O cualquier valor por defecto que desees
