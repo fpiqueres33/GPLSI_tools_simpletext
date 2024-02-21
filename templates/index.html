@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Clear Text</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .options-container {
+            position: fixed;
+            left: 0;
+            top: 50px;
+            width: 200px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+
+            .main-content {
+                margin-left: 220px;
+            }
+        .options-container h6 {
+            margin-bottom: 9px; /* Espacio debajo del encabezado del grupo */
+            }
+        .options-container .form-check {
+            margin-left: 20px; /* Sangría para las opciones */
+            font-size: 0.8em; /* Tamaño de la letra más pequeño */
+            }
+
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Logo en el borde superior izquierdo -->
+    <div class="logo">
+        <a href="https://gplsi.dlsi.ua.es/proyectos/cleartext/">
+            <img src="/static/Logo_ClearText.png" alt="Logo" style="height: 80px;">
+        </a>
+    </div>
+</div>
+ <div class="container mt-5">
+    <h5 class="mb-4">Cargar archivo de texto</h5>
+    <form action="/" class="mb-3" enctype="multipart/form-data" method="post">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <input class="form-control mb-4" name="file" type="file">
+            </div>
+        </div>
+        <!-- Textarea para entrada de texto directa -->
+        <div class="form-group">
+            <label for="inputText">Texto de entrada libre:</label>
+            <textarea class="form-control" id="inputText" name="inputText" rows="5">{{ input_text }}</textarea>
+        </div>
+
+        <!-- Añadir aquí las casillas de verificación -->
+        <div class="options-container">
+            <!-- Grupo Léxico -->
+            <div class="form-check" style="margin-left: 0;">
+                <input class="form-check-input" type="checkbox" id="useLexico" checked>
+                <label class="form-check-label h6" for="useLexico">Léxico</label>
+            </div>
+            <div id="optionsLexico" style="display:none">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useAdverbios" name="useAdverbios" checked>
+                    <label class="form-check-label" for="useAdverbios">Adverbios</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useNumero" name="useNumero" checked>
+                    <label class="form-check-label" for="useNumero">Números</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useRomanos" name="useRomanos" checked>
+                    <label class="form-check-label" for="useRomanos">Romanos</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useSuperlativos" name="useSuperlativos" checked>
+                    <label class="form-check-label" for="useSuperlativos">Superlativos</label>
+                </div>
+            </div>
+            <div class="form-check" style="margin-left: 0;">
+                <input class="form-check-input" type="checkbox" id="useSintactico" checked>
+                <label class="form-check-label h6" for="useSintactico">Sintáctico</label>
+            </div>
+            <div id="optionsSintactico" style="display:none">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useImpersonal" name="useImpersonal" checked>
+                    <label class="form-check-label" for="useImpersonal">Impersonal</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useComplejos" name="useComplejos" checked>
+                    <label class="form-check-label" for="useComplejos">Complejos</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="useNominalizacion" name="useNominalizacion" checked>
+                    <label class="form-check-label" for="useNominalizacion">Nominalizacion</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-secondary mr-2" name="action" type="submit" value="resumen">Resumen</button>
+            <button class="btn btn-secondary" name="action" type="submit" value="simplify">Lectura Facilitada</button>
+        </div>
+    </form>
+    <!-- Textarea para mostrar resultados -->
+    <div class="text-center mt-4">
+        <textarea class="form-control" readonly rows="10">{{ result_text }}</textarea>
+    </div>
+    <div class="text-center mt-4">
+        <button onclick="downloadText()" class="btn btn-primary">Descargar</button>
+        <a href="/" class="btn btn-secondary">Volver</a>
+    </div>
+
+    <script>
+        function downloadText() {
+            var content = document.querySelector('textarea').value;
+            var url = '/download?content=' + encodeURIComponent(content);
+            window.location.href = url;
+        }
+
+         // Función para limpiar la textarea
+    function clearTextArea() {
+        document.querySelector('textarea').value = '';
+    }
+    </script>
+
+    <script>
+    document.getElementById('useLexico').addEventListener('change', function() {
+        var checked = this.checked;
+        toggleLexicoOptions(checked);
+    });
+
+    function toggleLexicoOptions(checked) {
+        document.getElementById('useAdverbios').checked = checked;
+        document.getElementById('useNumero').checked = checked;
+        document.getElementById('useRomanos').checked = checked;
+        document.getElementById('useSuperlativos').checked = checked;
+    }
+
+    document.getElementById('useSintactico').addEventListener('change', function() {
+        var checked = this.checked;
+        toggleSintacticoOptions(checked);
+        // Esta línea también controlará la visibilidad de las opciones detalladas
+        toggleOptions('optionsSintactico', !checked);
+    });
+
+    function toggleSintacticoOptions(checked) {
+        document.getElementById('useComplejos').checked = checked;
+        document.getElementById('useImpersonal').checked = checked;
+        document.getElementById('useNominalizacion').checked = checked;
+    }
+
+    // Función auxiliar para controlar la visibilidad de las opciones
+    function toggleOptions(divId, show) {
+        document.getElementById(divId).style.display = show ? 'block' : 'none';
+    }
+
+    // Función auxiliar para marcar/desmarcar todas las opciones en un div
+    function setAllOptions(divId, checked) {
+        var checkboxes = document.getElementById(divId).getElementsByTagName('input');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = checked;
+        }
+    }
+</script>
+
+    <script>
+    document.getElementById('useLexico').addEventListener('change', function() {
+        var checked = this.checked;
+        toggleLexicoOptions(checked);
+        // Controlar la visibilidad de las opciones detalladas léxicas
+        toggleOptions('optionsLexico', !checked);
+    });
+
+    function toggleLexicoOptions(checked) {
+        document.getElementById('useAdverbios').checked = checked;
+        document.getElementById('useNumero').checked = checked;
+        document.getElementById('useRomanos').checked = checked;
+        document.getElementById('useSuperlativos').checked = checked;
+    }
+
+    document.getElementById('useSintactico').addEventListener('change', function() {
+        var checked = this.checked;
+        toggleSintacticoOptions(checked);
+        // Controlar la visibilidad de las opciones detalladas sintácticas
+        toggleOptions('optionsSintactico', !checked);
+    });
+
+    function toggleSintacticoOptions(checked) {
+        document.getElementById('useComplejos').checked = checked;
+        document.getElementById('useImpersonal').checked = checked;
+        document.getElementById('useNominalizacion').checked = checked;
+    }
+
+    // Función auxiliar para controlar la visibilidad de las opciones
+    function toggleOptions(divId, show) {
+        document.getElementById(divId).style.display = show ? 'block' : 'none';
+    }
+
+    // Función auxiliar para marcar/desmarcar todas las opciones en un div
+    function setAllOptions(divId, checked) {
+        var checkboxes = document.getElementById(divId).getElementsByTagName('input');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = checked;
+        }
+    }
+</script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

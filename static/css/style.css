@@ -1,0 +1,39 @@
+        .options-container {
+            position: fixed;
+            left: 0;
+            top: 50px; /* Ajusta según sea necesario */
+            width: 200px; /* Ajusta el ancho según sea necesario */
+            background-color: #f8f9fa; /* Color de fondo, cambia según tus preferencias */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .options-container .form-check {
+            margin-bottom: 10px;
+        }
+        .form-check {
+        margin-bottom: 10px; /* Espacio debajo de cada casilla de verificación */
+        padding-left: 20px
+        }
+
+        .form-check-input {
+        margin-top: 0.3em; /* Ajusta el alineamiento vertical de la casilla */
+        margin-right: 0.5em; /* Espacio entre la casilla y la etiqueta */
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        }
+
+        .form-check-label {
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        font-size: 0.9em
+        }
+
+        .options-detail {
+        margin-left: 20px; /* Añade sangría a las opciones detalladas */
+        font-size: 0.8em; /* Tamaño de fuente más pequeño para las opciones detalladas */
+
+        .logo {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        }

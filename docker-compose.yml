@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  cleartext-simpletext:
+    image: cleartext:latest
+    container_name: cleartext-simpletext
+    build:
+        context: .
+        dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8110:5000
+
