@@ -1,17 +1,26 @@
         .options-container {
             position: fixed;
-            left: 0;
-            top: 50px; /* Ajusta según sea necesario */
-            width: 200px; /* Ajusta el ancho según sea necesario */
+            left: 5px;
+            top: 90px; /* Ajusta según sea necesario */
+            width: 180px; /* Ajusta el ancho según sea necesario */
             background-color: #f8f9fa; /* Color de fondo, cambia según tus preferencias */
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .options-container .form-check {
-            margin-bottom: 10px;
+        .options-container h6 {
+            margin-bottom: 12px; /* Ajustar el espacio debajo del encabezado del grupo */
+            font-size: 1.1em; /* Ajustar el tamaño de la letra */
+            line-height: 1.6; /* Ajustar el interlineado */
         }
+
+        .options-container .form-check {
+            margin-bottom: 20px;
+            font-size: 1em; /* Ajustar el tamaño de la letra */
+            line-height: 1.4; /* Ajustar el interlineado */
+        }
+
         .form-check {
         margin-bottom: 10px; /* Espacio debajo de cada casilla de verificación */
         padding-left: 20px
@@ -29,11 +38,19 @@
         }
 
         .options-detail {
-        margin-left: 20px; /* Añade sangría a las opciones detalladas */
-        font-size: 0.8em; /* Tamaño de fuente más pequeño para las opciones detalladas */
+            margin-left: 20px; /* Añade sangría a las opciones detalladas */
+            font-size: 0.8em; /* Tamaño de fuente más pequeño para las opciones detalladas */
+        }
 
         .logo {
-        position: absolute;
-        top: 10px;
-        left: 10px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
         }
+
+        .selected-button {
+            background-color: black;
+            color: white;
+        }
+
+
