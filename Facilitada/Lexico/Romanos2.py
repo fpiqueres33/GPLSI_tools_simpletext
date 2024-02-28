@@ -43,9 +43,10 @@ class Romanos2:
         new_text = []
         for token in tokens:
             # Intenta detectar y convertir cada token por separado
-            if re.fullmatch(self.pattern, token):
+            token_sin_puntuacion = re.sub(r'[.,;:!?"\'()]$', '', token)
+            if re.fullmatch(self.pattern, token_sin_puntuacion):
                 try:
-                    arabic_num = roman.fromRoman(token.upper())
+                    arabic_num = roman.fromRoman(token_sin_puntuacion.upper())
                     new_text.append(str(arabic_num))
                 except roman.InvalidRomanNumeralError:
                     new_text.append(token)
