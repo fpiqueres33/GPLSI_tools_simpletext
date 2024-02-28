@@ -11,11 +11,13 @@ app = Flask(__name__)
 def index():
 
     result_text = ""
-    input_text = ""  # Variable para almacenar el texto ingresado
+    input_text = ""  # Variable para almacenar el texto introducido
     detected_number = None  # Variable para almacenar las detecciones.
 
     if request.method == 'POST':
         action = request.form.get('action')
+        mostrar_deteccion = request.form.get(
+            'mostrarDeteccion') == 'on'  # Captura el estado del checkbox "Mostrar Detección"
 
         # Comprobar si hay un archivo cargado
         file = request.files.get('file')
@@ -50,8 +52,10 @@ def index():
             # Aquí se procesa el texto con las opciones seleccionadas
             result_text, detecciones = process_simplify(input_text, use_adverbios, use_complejos, use_numeros, use_romanos,
                                            use_superlativos, use_abreviaturas, use_impersonal, use_nominalizacion)
+            if mostrar_deteccion:
+                result_text += "\n\nElementos detectados:\n" + str(detecciones)
 
-            result_text += "\n\nElementos detectados:\n" + str(detecciones)
+
 
 
         #Lógica para la generación de resumen

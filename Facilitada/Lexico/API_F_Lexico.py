@@ -1,9 +1,9 @@
 from Facilitada.Lexico.Adverbios import Adverbios
 from Facilitada.Lexico.Numeros import Numero
-from Facilitada.Lexico.Romanos import Romanos
+# from Facilitada.Lexico.Romanos import Romanos
 from Facilitada.Lexico.Superlativos import Superlativos
 from Facilitada.Lexico.Abreviaturas import Abreviaturas
-
+from Facilitada.Lexico.Romanos2 import Romanos2
 
 class API_Lexico:
     def __init__(self, habilitar_adverbios=True, habilitar_superlativos=True, habilitar_numeros=True,
@@ -19,7 +19,7 @@ class API_Lexico:
         self.adverbios = Adverbios() if habilitar_adverbios else None
         self.superlativos = Superlativos() if habilitar_superlativos else None
         self.numeros = Numero() if habilitar_numeros else None
-        self.romanos = Romanos() if habilitar_romanos else None
+        self.romanos = Romanos2() if habilitar_romanos else None
         self.abreviaturas = Abreviaturas() if habilitar_abreviaturas else None
 
     def transformar_lexico(self, texto):
@@ -60,7 +60,7 @@ class API_Lexico:
             detecciones['numeros'] = self.numeros.detectar_numeros(texto)
 
         if self.habilitar_romanos and self.romanos:
-            detecciones['romanos'] = self.romanos.detectar_romanos_sin_loc(texto)
+            detecciones['romanos'] = self.romanos.detectar_romanos(texto)
 
         return detecciones
 
