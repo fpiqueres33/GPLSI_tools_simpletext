@@ -35,3 +35,16 @@
         }
     }
 
+    // Escuchar tipo de botón marcado para cambiar color de marco
+function changeBorder(value) {
+    var textarea = document.getElementById('resultText');
+    if (value === 'simplify') {
+        textarea.style.borderColor = 'darkblue';
+    }
+}
+
+function resetBorder() {
+    var textarea = document.getElementById('resultText');
+    textarea.style.borderColor = ''; // Esto restablecerá el color del borde al valor predeterminado
+}
+

@@ -56,8 +56,6 @@ def index():
                 result_text += "\n\nElementos detectados:\n" + str(detecciones)
 
 
-
-
         #Lógica para la generación de resumen
         elif action == 'resumen':
             clear_text_ts = ClearTextTS()
@@ -75,6 +73,7 @@ def index():
                 # Si no hay archivo, usa el texto ingresado directamente
                 result = clear_text_ts.generate_summary(input_text)
             result_text = result['summary']
+
 
     return render_template('index.html', result_text=result_text, input_text=input_text)
 
