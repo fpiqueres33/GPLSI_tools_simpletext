@@ -1,6 +1,5 @@
 import spacy
 
-
 class Adverbios:
     def __init__(self):
         self.nlp = spacy.load("es_core_news_sm")
