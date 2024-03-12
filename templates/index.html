@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <h6 label
                         for="inputText">Texto de entrada libre:</h6 label>
-                    <textarea class="form-control" id="inputText" name="inputText" rows="20">{{ input_text }}</textarea>
+                    <textarea class="form-control" id="inputText" name="inputText" rows="15">{{ input_text }}</textarea>
                 </div>
                 <!-- Añadir aquí las casillas de verificación -->
                 <div class="options-container">
@@ -61,6 +61,11 @@
                             <input class="form-check-input" type="checkbox" id="useAbreviaturas" name="useAbreviaturas"
                                    checked>
                             <label class="form-check-label" for="useAbreviaturas">Abreviaturas</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="useAnglicismos" name="useAnglicismos"
+                                   checked>
+                            <label class="form-check-label" for="useAnglicismos">Anglicismos</label>
                         </div>
                     </div>
                     <div class="form-check" style="margin-left: 0;">
@@ -108,7 +113,7 @@
         <!-- Textarea para mostrar resultados en columnsa -->
         <div class="col-md-6 mt-5">
             <div class="text-center>">
-                <textarea class="form-control" id="resultText" readonly rows="23">{{ result_text }}</textarea>
+                <textarea class="form-control" id="resultText" readonly rows="18">{{ result_text }}</textarea>
             </div>
             <div class="text-center mt-4">
                 <button onclick="downloadText()" class="btn btn-primary">Descargar</button>
@@ -122,4 +127,3 @@
     <script src="/static/js/scripts.js"></script>
 </body>
 </html>
-
