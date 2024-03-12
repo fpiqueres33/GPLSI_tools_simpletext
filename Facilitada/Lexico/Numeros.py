@@ -74,9 +74,16 @@ class Numero:
         self.number_pattern = re.compile(r'\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b|\b\d+(?:,\d+)?\b')
         self.percentage_pattern = re.compile(r'%')
 
+    #Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
+    def marcar_saltos_de_linea(self, text):
+        return text.replace('\n', '##€€??))96Ae')
+
+    def restaurar_saltos_de_linea(self, text):
+        return text.replace('##€€??))96Ae', '\n')
     def reemplazar_numeros(self, text):
         # transformamos los números escritos como primer paso del pipeline para las siguientes transformaciones
-        text = self.transformar_numeros_escritos(text)
+        texto_marcado = self.marcar_saltos_de_linea(text)
+        text = self.transformar_numeros_escritos(texto_marcado)
 
         # ejecutamos pipeline de lectura simplificada
         sentences = sent_tokenize(text)
@@ -123,8 +130,10 @@ class Numero:
             transformed_sentence = ' '.join(transformed_words)
             transformed_sentence = self.correct_spaces_around_punctuation(transformed_sentence)
             transformed_sentences.append(transformed_sentence)
+            texto_final = self.restaurar_saltos_de_linea(
+                texto_marcado)  # Usa text_transformado si aplicas transformaciones
 
-        return ' '.join(transformed_sentences)
+        return texto_final
 
     def correct_spaces_around_punctuation(self, text):
         # Reemplazar espacios incorrectos alrededor de la puntuación

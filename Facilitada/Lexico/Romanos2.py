@@ -39,20 +39,21 @@ class Romanos2:
             return None
 
     def reemplazar_romanos(self, text):
-        tokens = text.split()
-        new_text = []
-        for token in tokens:
-            # Intenta detectar y convertir cada token por separado
-            token_sin_puntuacion = re.sub(r'[.,;:!?"\'()]$', '', token)
-            if re.fullmatch(self.pattern, token_sin_puntuacion):
-                try:
-                    arabic_num = roman.fromRoman(token_sin_puntuacion.upper())
-                    new_text.append(str(arabic_num))
-                except roman.InvalidRomanNumeralError:
-                    new_text.append(token)
-            else:
-                new_text.append(token)
-        return ' '.join(new_text)
+        # Define una expresión regular que incluya números romanos y opcionalmente puntuación
+        pattern_with_punctuation = r'(\bM{0,4}(CM|CD|D?C{0,3})?(XC|XL|L?X{0,3})?(IX|IV|V?I{0,3})\b)([.,;:!?"\'()]?)'
+
+        def replace_roman_with_arabic(match):
+            roman_numeral = match.group(1)
+            punctuation = match.group(5)
+            if roman_numeral:  # Verifica que el numeral romano no esté vacío
+                arabic_numeral = str(roman.fromRoman(roman_numeral.upper()))
+                return arabic_numeral + punctuation
+            return match.group(0)  # Devuelve el texto original si el numeral romano está vacío
+
+        # Usa la expresión regular para reemplazar números romanos conservando la puntuación
+        new_text = re.sub(pattern_with_punctuation, replace_roman_with_arabic, text)
+        return new_text
+
 
     def reemplazar_ordinales_en_nombres(self, text):
         doc = self.nlp(text)
@@ -67,3 +68,7 @@ class Romanos2:
                         nuevo_nombre = " ".join(tokens[:-1]) + " " + ordinal
                         new_text = new_text.replace(ent.text, nuevo_nombre)
         return new_text
+
+
+
+
