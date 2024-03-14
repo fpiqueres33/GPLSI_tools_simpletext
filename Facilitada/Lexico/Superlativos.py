@@ -34,24 +34,41 @@ class Superlativos:
         }
 
     def detectar_superlativos(self, text):
-        self.superlatives = re.findall(self.superlative_pattern, text)
+        self.superlatives = re.findall(self.superlative_pattern, text, flags=re.IGNORECASE)
         return self.superlatives
 
     def get_base_adjective(self, superlative):
+        # Convertir a minúsculas para manejar uniformemente, guardando el caso original
+        original_case = superlative
+        superlative = superlative.lower()
+
         # Comprueba si el superlativo está en casos especiales
         if superlative in self.special_cases:
-            return self.special_cases[superlative]
-        base = superlative
-        if superlative.endswith(('érrimo', 'érrimos', 'érrima', 'érrimas')):
+            base = self.special_cases[superlative]
+        elif superlative.endswith(('érrimo', 'érrimos', 'érrima', 'érrimas')):
             base = superlative.replace('érrim', 're')
         else:
             for end, replacement in self.ending_map.items():
                 if superlative.endswith(end):
                     base = superlative[:-len(end)] + replacement
                     break
+            else:
+                # Si no se encuentra ninguna coincidencia, mantener la base original
+                base = superlative
 
+        # Ajustar finales especiales
         base = self.adjust_qu_endings(base)
-        return self.special_cases.get(base, base)
+
+        # Manejar el caso original
+        if original_case.isupper():
+            # Si el superlativo original estaba todo en mayúsculas
+            return base.upper()
+        elif original_case[0].isupper():
+            # Si el superlativo original comenzaba con mayúscula
+            return base.capitalize()
+        else:
+            # Superlativo en minúsculas
+            return base
 
     def adjust_qu_endings(self, word):
         qu_endings = {
@@ -94,6 +111,18 @@ class Superlativos:
     def reemplazar_superlativos(self, text):
         superlatives_detected = self.detectar_superlativos(text)
         for superlative in superlatives_detected:
+            print(superlative)
+            print(superlative.isupper())
             base_adjective = self.get_base_adjective(superlative)
-            text = text.replace(superlative, f"muy {base_adjective}")
+            print(base_adjective)
+            # Comprueba si el superlativo está en mayúsculas
+            if superlative.isupper():
+                replacement = "MUY " + base_adjective.upper()
+            # Comprueba si el superlativo comienza con una letra mayúscula
+            elif superlative[0].isupper():
+                replacement = "Muy " + base_adjective.lower()
+            else:
+                replacement = "muy " + base_adjective.lower()
+            text = re.sub(re.escape(superlative), replacement, text)
         return text
+
