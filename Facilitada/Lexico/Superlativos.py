@@ -111,10 +111,8 @@ class Superlativos:
     def reemplazar_superlativos(self, text):
         superlatives_detected = self.detectar_superlativos(text)
         for superlative in superlatives_detected:
-            print(superlative)
-            print(superlative.isupper())
             base_adjective = self.get_base_adjective(superlative)
-            print(base_adjective)
+
             # Comprueba si el superlativo está en mayúsculas
             if superlative.isupper():
                 replacement = "MUY " + base_adjective.upper()
@@ -125,4 +123,3 @@ class Superlativos:
                 replacement = "muy " + base_adjective.lower()
             text = re.sub(re.escape(superlative), replacement, text)
         return text
-

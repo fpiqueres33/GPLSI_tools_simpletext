@@ -3,6 +3,9 @@ from Resumen.ClearTextTS import ClearTextTS
 from Parser_documents import Parser_Documents
 from Facilitada.Lexico.API_F_Lexico import API_Lexico
 from Facilitada.Sintactico.API_F_Sintactico import API_Sintactico
+from Facilitada.Topicos.TextComplexity import TextComplexityCalculator
+from Facilitada.Topicos.Topicos import Topicos
+
 
 app = Flask(__name__)
 
@@ -27,9 +30,10 @@ def index():
                 input_text = parser.parse()
             except ValueError as e:
                 return str(e)
+
         else:
             # Si no hay archivo, usar el texto del textarea
-            input_text = request.form.get('inputText')
+            input_text = request.form.get('inputText', '')
 
         if not input_text.strip():
             # Si no hay texto para procesar
@@ -74,6 +78,11 @@ def index():
                 # Si no hay archivo, usa el texto ingresado directamente
                 result = clear_text_ts.generate_summary(input_text)
             result_text = result['summary']
+
+        elif action == 'Topicos':
+            topicos = Topicos()
+            result_text = topicos.procesar_texto(input_text)
+
 
 
     return render_template('index.html', result_text=result_text, input_text=input_text)
