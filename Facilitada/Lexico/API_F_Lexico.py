@@ -28,6 +28,7 @@ class API_Lexico:
         # Aquí se aplicarán las transformaciones según la configuración
         texto_transformado = texto
         glosario_lines = []
+        glosario = ""
 
         if self.habilitar_abreviaturas and self.abreviaturas:
             texto_transformado = self.abreviaturas.sustituir_abreviaturas(texto_transformado)
@@ -50,9 +51,8 @@ class API_Lexico:
 
         if glosario_lines:  # Aseguramos agregar el glosario solo si hay anglicismos detectados
             glosario = "\n".join(glosario_lines)
-            texto_transformado += "\nGLOSARIO ANGLICISMOS:\n" + glosario
 
-        return texto_transformado
+        return texto_transformado, glosario
 
     def detecciones_lexico(self, texto):
         detecciones = {}

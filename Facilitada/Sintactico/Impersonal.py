@@ -21,7 +21,7 @@ class Impersonal:
         posiciones = self.detectar_impersonal(texto)
         texto_modificado = texto
         for inicio, fin, es_capitalizado, verbo in sorted(posiciones, reverse=True):
-            ciudadano = 'La ciudadana o el ciudadano' if es_capitalizado else 'la ciudadana o el ciudadano'
+            ciudadano = 'La ciudadana o el ciudadano ' if es_capitalizado else 'la ciudadana o el ciudadano '
             sustitucion = f'{ciudadano} {verbo}'
             texto_modificado = texto_modificado[:inicio] + sustitucion + texto_modificado[fin:]
 
@@ -37,3 +37,16 @@ class Impersonal:
                 construcciones_impersonales.append(construccion)
 
         return construcciones_impersonales
+
+    def detectar_impersonal_oraciones_completas(self, texto):
+        doc = self.nlp(texto)
+        oraciones_con_impersonal = []
+
+        for token in doc:
+            if token.lower_ == 'se' and token.head.pos_ == 'VERB' and token.head.i > token.i:
+                # spaCy permite acceder a la oración completa de un token
+                oracion_completa = token.sent.text
+                if oracion_completa not in oraciones_con_impersonal:  # Evita duplicados
+                    oraciones_con_impersonal.append(oracion_completa)
+
+        return oraciones_con_impersonal

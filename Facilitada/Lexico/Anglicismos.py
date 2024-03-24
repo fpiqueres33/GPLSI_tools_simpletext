@@ -237,6 +237,7 @@ class Anglicismos:
                 'wifi': 'Conexión inalámbrica. Cuando los dispositivos se conectan usando ondas electromagnéticas en lugar de cables. (Tecnología)',
                 'workshop': 'Taller. (General)',
                 'wrap': 'Un wrap es como un taco o burrito, pero con ingredientes de sándwich dentro de una tortilla o pan plano. (Gastronomía)'
+
             }
 
         self.diccionario = diccionario

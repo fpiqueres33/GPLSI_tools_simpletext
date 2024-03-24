@@ -166,6 +166,7 @@ class Abreviaturas:
                 "RNE": "Radio Nacional de España",
                 "UGT": "Unión General de Trabajdores",
                 "TV3": "Televisión Catalana"
+
             }
 
         self.diccionario = diccionario

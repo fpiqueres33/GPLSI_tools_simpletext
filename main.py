@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, Response
 from Resumen.ClearTextTS import ClearTextTS
 from Parser_documents import Parser_Documents
 from Facilitada.Lexico.API_F_Lexico import API_Lexico
-from Facilitada.Sintactico.API_F_Sintactico import API_Sintactico
+from Facilitada.Sintactico.API_F_Sintactico import ApiSintactico
 from Facilitada.Topicos.Topicos import Topicos
 
 
@@ -124,13 +124,20 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
                             habilitar_numeros=use_numeros, habilitar_romanos=use_romanos,
                             habilitar_abreviaturas=use_abreviaturas, habilitar_anglicismos=use_anglicismos)
 
-    api_sintactico = API_Sintactico(habilitar_nominalizacion=use_nominalizacion,  # O cualquier valor por defecto que desees
-                                    habilitar_impersonales=use_impersonal,  # O cualquier valor por defecto que desees
-                                    habilitar_complejos=use_complejos)
+    api_sintactico = ApiSintactico(habilitar_nominalizacion=use_nominalizacion,  # O cualquier valor por defecto que desees
+                                   habilitar_impersonales=use_impersonal,  # O cualquier valor por defecto que desees
+                                   habilitar_complejos=use_complejos)
 
     # Procesar el texto utilizando las API
-    texto_transformado = api_lexico.transformar_lexico(input_text)
-    texto_transformado2 = api_sintactico.transformar_sintactico(texto_transformado)
+    texto_transformado_lexico, glosario_lexico = api_lexico.transformar_lexico(input_text)
+    texto_transformado_sintactico, glosario_sintactico = api_sintactico.transformar_sintactico(texto_transformado_lexico)
+
+    #Procesar el texto final y añadir los glosarios.
+    texto_final = texto_transformado_sintactico
+    if glosario_lexico:
+        texto_final += "\nGLOSARIO ANGLICISMOS:\n" + glosario_lexico
+    if glosario_sintactico:
+        texto_final += "\n\nGLOSARIO ORACIONES COMPLEJAS:\n" + glosario_sintactico
 
     # Ejecutar las detecciones
     detecciones_lexico = api_lexico.detecciones_lexico(input_text)
@@ -143,7 +150,7 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
         "sintactico": detecciones_sintactico
     }
 
-    return texto_transformado2, detecciones
+    return texto_final, detecciones
 
 
 

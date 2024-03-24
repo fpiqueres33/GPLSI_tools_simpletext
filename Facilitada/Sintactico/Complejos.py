@@ -14,6 +14,7 @@ class Complejos:
             'por consiguiente': 'también',
             'sin embargo': 'además',
             'en consecuencia': 'por lo tanto'
+
         }
 
     def detectar_y_sustituir_conectores(self, texto):

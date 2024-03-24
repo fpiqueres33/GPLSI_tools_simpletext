@@ -51,6 +51,7 @@ class Adverbios:
             "realmente": "en verdad",
             "indudablemente": "sin lugar a dudas",
             "evidentemente": "es evidente"
+
         }
 
     '''
