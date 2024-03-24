@@ -1,3 +1,6 @@
+import re
+
+
 class Anglicismos:
     def __init__(self, diccionario=None):
         if diccionario is None:
@@ -290,20 +293,29 @@ class Anglicismos:
         return anglicismos_detectados
 
     def glosario_anglicismos(self, texto):
-        texto_tokens = texto.lower().split()
+        # Usar expresiones regulares para dividir el texto en palabras, ignorando la puntuación
+        texto_tokens = re.findall(r'\b\w+\b', texto.lower())
         anglicismos_ordenados = sorted(self.diccionario.keys(), key=len, reverse=True)
         glosario_list = []
 
         for anglicismo in anglicismos_ordenados:
             anglicismo_lower = anglicismo.lower()
             for token in texto_tokens:
-                # Buscamos coincidencias exactas con los tokens, en lugar de subcadenas dentro de un texto más largo
                 if anglicismo_lower == token:
                     entrada_glosario = f"{anglicismo.capitalize()}: {self.diccionario[anglicismo]}"
                     if entrada_glosario not in glosario_list:  # Evita duplicados en el glosario
                         glosario_list.append(entrada_glosario)
-                    break  # Si encontramos el anglicismo, no necesitamos seguir buscando en otros tokens
+                    # No es necesario el break aquí, ya que queremos encontrar todos los anglicismos
 
         return glosario_list
 
 
+ang = Anglicismos()
+
+frases = """
+El tester resultó indudablemente necesario. LLevaba una ropa muy trendy, 
+El señor Admirablemente aceptó el desafío
+"""
+
+print(ang.glosario_anglicismos(frases))
+print(ang.detectar_anglicismos(frases))

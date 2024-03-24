@@ -137,7 +137,7 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
     if glosario_lexico:
         texto_final += "\nGLOSARIO ANGLICISMOS:\n" + glosario_lexico
     if glosario_sintactico:
-        texto_final += "\n\nGLOSARIO ORACIONES COMPLEJAS:\n" + glosario_sintactico
+        texto_final += "\nGLOSARIO ORACIONES COMPLEJAS:\n" + glosario_sintactico
 
     # Ejecutar las detecciones
     detecciones_lexico = api_lexico.detecciones_lexico(input_text)
