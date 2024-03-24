@@ -308,14 +308,3 @@ class Anglicismos:
                     # No es necesario el break aquí, ya que queremos encontrar todos los anglicismos
 
         return glosario_list
-
-
-ang = Anglicismos()
-
-frases = """
-El tester resultó indudablemente necesario. LLevaba una ropa muy trendy, 
-El señor Admirablemente aceptó el desafío
-"""
-
-print(ang.glosario_anglicismos(frases))
-print(ang.detectar_anglicismos(frases))
