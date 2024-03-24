@@ -1,6 +1,5 @@
 from Facilitada.Lexico.Adverbios import Adverbios
 from Facilitada.Lexico.Numeros import Numero
-# from Facilitada.Lexico.Romanos import Romanos
 from Facilitada.Lexico.Superlativos import Superlativos
 from Facilitada.Lexico.Abreviaturas import Abreviaturas
 from Facilitada.Lexico.Romanos2 import Romanos2
@@ -28,12 +27,13 @@ class API_Lexico:
     def transformar_lexico(self, texto):
         # Aquí se aplicarán las transformaciones según la configuración
         texto_transformado = texto
+        glosario_lines = []
 
         if self.habilitar_abreviaturas and self.abreviaturas:
             texto_transformado = self.abreviaturas.sustituir_abreviaturas(texto_transformado)
 
         if self.habilitar_anglicismos and self.anglicismos:
-            texto_transformado = self.anglicismos.sustituir_anglicismos(texto_transformado)
+            glosario_lines = self.anglicismos.glosario_anglicismos(texto)
 
         if self.habilitar_adverbios and self.adverbios:
             texto_transformado = self.adverbios.sustituir_adverbios(texto_transformado)
@@ -48,6 +48,10 @@ class API_Lexico:
             texto_transformado = self.romanos.reemplazar_romanos(texto_transformado)
             texto_transformado = self.romanos.reemplazar_ordinales_en_nombres(texto_transformado)
 
+        if glosario_lines:  # Aseguramos agregar el glosario solo si hay anglicismos detectados
+            glosario = "\n".join(glosario_lines)
+            texto_transformado += "\nGLOSARIO ANGLICISMOS:\n" + glosario
+
         return texto_transformado
 
     def detecciones_lexico(self, texto):
@@ -56,7 +60,7 @@ class API_Lexico:
         if self.habilitar_abreviaturas and self.abreviaturas:
             detecciones['abreviaturas'] = self.abreviaturas.detectar_abreviaturas(texto)
 
-        if self.habilitar_romanos and self.anglicismos:
+        if self.habilitar_anglicismos and self.anglicismos:
             detecciones['anglicismos'] = self.anglicismos.detectar_anglicismos(texto)
 
         if self.habilitar_adverbios and self.adverbios:

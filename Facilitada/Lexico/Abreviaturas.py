@@ -157,9 +157,15 @@ class Abreviaturas:
                 "TIC": "Tecnologías de la Información",
                 "UNED": "Universidad Nacional de Educación a Distancia",
                 "VOSE": "Versión Original Subtitulada al Español",
-                "VOSI": "Versión Original Subtitulada al Inglés"
-
-
+                "VOSI": "Versión Original Subtitulada al Inglés",
+                "EDUSI": "Estrategia de Desarrollo Urbano Sostenible e Integrado",
+                "RTVE": "Radio Televisión Española",
+                "ITV": "Inspección Técnica de Vehículos",
+                "JJOO": "Juegos Olímpicos",
+                "LGTB": "Lesbianas, Gais, Transexuales y Bisexuales",
+                "RNE": "Radio Nacional de España",
+                "UGT": "Unión General de Trabajdores",
+                "TV3": "Televisión Catalana"
             }
 
         self.diccionario = diccionario

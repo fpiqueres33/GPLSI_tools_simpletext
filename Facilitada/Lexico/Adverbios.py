@@ -39,7 +39,18 @@ class Adverbios:
             "lamentablemente": "por desgracia",
             "solamente": "solo",
             "justamente": "justo",
-            "efectivamente": "en efecto"
+            "efectivamente": "en efecto",
+            "únicamente": "solo",
+            "posiblemente": "lo mas seguro es que",
+            "probablemente": "lo mas seguro es que",
+            "seguramente": "lo mas seguro es",
+            "seguidamente": "a continuación",
+            "igualmente": "además",
+            "análogamente": "de igual forma",
+            "particularmente": "en particular",
+            "realmente": "en verdad",
+            "indudablemente": "sin lugar a dudas",
+            "evidentemente": "es evidente"
         }
 
     '''

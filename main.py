@@ -3,7 +3,6 @@ from Resumen.ClearTextTS import ClearTextTS
 from Parser_documents import Parser_Documents
 from Facilitada.Lexico.API_F_Lexico import API_Lexico
 from Facilitada.Sintactico.API_F_Sintactico import API_Sintactico
-from Facilitada.Topicos.TextComplexity import TextComplexityCalculator
 from Facilitada.Topicos.Topicos import Topicos
 
 
