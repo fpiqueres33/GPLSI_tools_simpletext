@@ -309,9 +309,3 @@ class Anglicismos:
 
 
         return glosario_list
-
-
-def leer_archivo(ruta_archivo):
-    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
-        contenido = archivo.read()
-    return contenido
