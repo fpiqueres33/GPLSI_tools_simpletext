@@ -102,7 +102,3 @@ class Adverbios:
                     texto_modificado += ' '
 
         return texto_modificado
-
-
-
-

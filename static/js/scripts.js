@@ -72,6 +72,8 @@ function toggleLexicoOptions(checked) {
     document.getElementById('useSuperlativos').checked = checked;
     document.getElementById('useAbreviaturas').checked = checked;
     document.getElementById('useAnglicismos').checked = checked;
+    document.getElementById('usePalabrasLargas').checked = checked;
+    document.getElementById('usePalabrasDificiles').checked = checked;
 }
 
 // Función para cambiar las opciones sintácticas

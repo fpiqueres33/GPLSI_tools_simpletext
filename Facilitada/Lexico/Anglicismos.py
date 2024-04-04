@@ -213,6 +213,7 @@ class Anglicismos:
                 'street food': 'Street food es la comida que se vende en la calle en puestos portátiles o improvisados. (Gastronomía)',
                 'sweater': 'Suéter. Un suéter es una prenda de punto con mangas que llega hasta la cintura. (Moda)',
                 'tablet': 'Tableta. Dispositivo electrónico portátil más grande que un teléfono. Tiene una pantalla táctil que emite luz y se usa con los dedos o un lápiz óptico (Tecnología)',
+                'tablets': 'Tableta. Dispositivo electrónico portátil más grande que un teléfono. Tiene una pantalla táctil que emite luz y se usa con los dedos o un lápiz óptico (Tecnología)',
                 'take away': 'Comida para llevar. (Gastronomía)',
                 'target': 'Público objetivo. Público al que se dirige una acción de publicidad (Economía)',
                 'targets': 'Público objetivo. Público al que se dirige una acción de publicidad (Economía)',
@@ -305,6 +306,12 @@ class Anglicismos:
                     entrada_glosario = f"{anglicismo.capitalize()}: {self.diccionario[anglicismo]}"
                     if entrada_glosario not in glosario_list:  # Evita duplicados en el glosario
                         glosario_list.append(entrada_glosario)
-                    # No es necesario el break aquí, ya que queremos encontrar todos los anglicismos
+
 
         return glosario_list
+
+
+def leer_archivo(ruta_archivo):
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        contenido = archivo.read()
+    return contenido

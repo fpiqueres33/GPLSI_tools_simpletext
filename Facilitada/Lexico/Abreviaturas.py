@@ -1,3 +1,5 @@
+import re
+
 class Abreviaturas:
     def __init__(self, diccionario = None):
         if diccionario == None:
@@ -53,7 +55,7 @@ class Abreviaturas:
             "esq.": "esquina", "et al.": "y otros", "etc.": "etcétera", "Exc.ª": "Excelencia", "excl.":"exclusive",
             "Excmo.": "Excelentísima", "Excma.":"Excelentísima", "f.ª":"factura", "facs.":"facsímil",
             "fasc.":"fascículo", "f. c. ":"ferrocarril",
-            "ff.cc.":"ferrocarriles", "F. C.":"Fútbol Club", "F.C": "Fútbol Club",
+            "ff.cc.":"ferrocarriles", "F. C.":"Fútbol Club", "F.C.": "Fútbol Club",
             "fca.":"fábrica", "F. de E.":"fe de erratas", "Fdo.":" firmado", "fec.":"hizo",
             "FF.AA.":"Fuerzas Armadas", "fig.":"figura", "Fr.":"Fray", "fra.":"factura", "Gdor. ":"Gobernador",
             "Gdora.":"Gobernadora", "Gob.":"Gobierno", "g. p.":"giro postal", "gr.":"gramo", "gral.":"general",
@@ -207,15 +209,40 @@ class Abreviaturas:
                     inicio += len(abreviatura)
         return abreviaturas_detectadas
 
+
+    def sustituir_abreviaturas_regex(self, texto):
+        for abreviatura, expansion in self.diccionario.items():
+            # Crear un patrón regex que busque la abreviatura con delimitadores de palabra
+            patron = r'\b' + re.escape(abreviatura) + r'\b'
+            texto = re.sub(patron, expansion, texto, flags=re.IGNORECASE)
+        return texto
+
 """
-# Ejemplo de uso
+from collections import Counter
+
+def leer_archivo(ruta_archivo):
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        contenido = archivo.read()
+    return contenido
 
 
-texto_ejemplo = ("a. de C. es una abreviatura común. El C.C. se ubica en la c/ Pascual Pérez. El Valmte. López acudió a la recepción oficial"
-                 "de SS. MM. los reyes")
 abreviaturas = Abreviaturas()
-texto_modificado = abreviaturas.sustituir_abreviaturas(texto_ejemplo)
-print(texto_modificado)
-abreviaturas_detectadas = abreviaturas.detectar_abreviaturas(texto_ejemplo)
-print("Abreviaturas detectadas:", abreviaturas_detectadas)
+texto = leer_archivo("C:/Users/fpiqueres/PycharmProjects/tools_simpletext/Textos/09Textos.txt")
+
+from collections import Counter
+
+mi_tuple = abreviaturas.detectar_abreviaturas(texto)
+
+conteo = Counter(mi_tuple)
+
+# Preparar la cabecera de la tabla
+print(f"{'Abreviaturas':<15}{'Frecuencia':<10}")
+
+# Imprimir una línea divisoria
+print("-" * 25)
+
+# Iterar sobre los elementos del conteo para imprimir cada fila
+for abreviaturas, frecuencia in conteo.items():
+    print(f"{abreviaturas:<15}{frecuencia:<10}")
+
 """
