@@ -9,11 +9,12 @@ class Nominalizacion:
                             'lugar': True,
                             'oscar': True,
                             'óscar': True,
-                            'mujer': True,  #en principio no es necesaria al ser femenimo La mujeer no entraría en el código de detección.
+                            'mujer': True,  #en principio no es necesaria al ser femenimo La mujer no entraría en el código de detección.
                             'taller': True,
                             'trailer': True,
-                            'ayer': True
-
+                            'ayer': True,
+                            'mayer': True,
+                            'camper': True,
                             }
 
     def detectar_nominalizacion(self, texto):
@@ -35,10 +36,22 @@ class Nominalizacion:
         texto_modificado = texto
 
         for inicio, fin, es_capitalizado, verbo in sorted(posiciones, reverse=True):
-            longitud_articulo = 3 if es_capitalizado else 2
+            # Comprobar si hay un punto justo después del verbo y preservarlo
+            preservar_punto = texto[fin:fin + 2] == ' .' or texto[fin] == '.'
+            punto_a_aniadir = '.' if preservar_punto and texto[fin] == '.' else ''
+            espacio_a_aniadir = ' ' if texto[fin:fin + 2] == ' .' else ''
+
             if es_capitalizado:
                 verbo = verbo.capitalize()
-            texto_modificado = texto_modificado[:inicio] + verbo + texto_modificado[fin+1:]
+
+            # Si hay un punto sin espacio antes, insertar un espacio antes del verbo
+            espacio_previo = ' ' if not texto[inicio - 1].isspace() and inicio > 0 else ''
+            reemplazo = f"{espacio_previo}{verbo}{espacio_a_aniadir}{punto_a_aniadir}"
+
+            # Ajustar el índice final para incluir el punto si está presente
+            fin_adj = fin + 1 if texto[fin] == '.' else fin
+
+            texto_modificado = texto_modificado[:inicio] + reemplazo + texto_modificado[fin_adj + 1:]
 
         return texto_modificado
 

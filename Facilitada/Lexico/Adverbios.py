@@ -54,13 +54,6 @@ class Adverbios:
 
         }
 
-    '''
-    def detectar_tokens_spacy(self, texto):
-        # Procesar el texto utilizando spaCy desde la instancia de Preproceso_texto
-        doc = self.nlp(texto)
-        tokens_info = [(token.text, token.pos_) for token in doc]
-        return tokens_info
-    '''
 
     def detectar_adverbios_mente(self, tokens_info):
         doc = self.nlp(tokens_info)
