@@ -4,7 +4,7 @@ import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from num2words import num2words
 
-nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
+# nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
 
 
 class Numero:
@@ -74,12 +74,14 @@ class Numero:
         self.number_pattern = re.compile(r'\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b|\b\d+(?:,\d+)?\b')
         self.percentage_pattern = re.compile(r'%')
 
-    #Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
+        # Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
     def marcar_saltos_de_linea(self, text):
-        return text.replace('\n', '##€€??))96Ae')
+        return text.replace('\n', 'ZQRTESqwuio')
 
     def restaurar_saltos_de_linea(self, text):
-        return text.replace('##€€??))96Ae', '\n')
+        return text.replace('ZQRTESqwuio', '\n')
+
+
     def reemplazar_numeros(self, text):
         # transformamos los números escritos como primer paso del pipeline para las siguientes transformaciones
         texto_marcado = self.marcar_saltos_de_linea(text)
@@ -130,8 +132,7 @@ class Numero:
             transformed_sentence = ' '.join(transformed_words)
             transformed_sentence = self.correct_spaces_around_punctuation(transformed_sentence)
             transformed_sentences.append(transformed_sentence)
-            texto_final = self.restaurar_saltos_de_linea(
-                texto_marcado)  # Usa text_transformado si aplicas transformaciones
+            texto_final = self.restaurar_saltos_de_linea(' '.join(transformed_sentences))
 
         return texto_final
 
@@ -378,3 +379,6 @@ class Numero:
                     detected_elements['números escritos'].append(f"{word} ({numero_escrito})")
 
         return detected_elements
+
+
+

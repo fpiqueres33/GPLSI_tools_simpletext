@@ -174,4 +174,6 @@ def download():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)  # Comentar esta línea si no quieres que Flask se ejecute al hacer la prueba.
+
+

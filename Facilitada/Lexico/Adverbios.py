@@ -54,44 +54,35 @@ class Adverbios:
 
         }
 
-
-    def detectar_adverbios_mente(self, tokens_info):
-        doc = self.nlp(tokens_info)
-        adverbios_mente = [(token.text, token.pos_) for token in doc if
-                           token.text.endswith("mente") and token.pos_ == "ADV"]
+    def detectar_adverbios_mente(self, texto):
+        doc = self.nlp(texto)
+        adverbios_mente = []
+        for token in doc:
+            if token.text.lower() in self.diccionario_adverbios or (
+                    token.text.endswith("mente") and token.pos_ == "ADV"):
+                # Añadir el texto del token y su etiqueta POS.
+                adverbios_mente.append((token.text, token.pos_))
         return adverbios_mente
-
 
     def sustituir_adverbios(self, texto):
         doc = self.nlp(texto)
         texto_modificado = ""
-
         for token in doc:
             texto_token = token.text
-            if token.pos_ == 'ADV' and (texto_token.endswith('mente') or texto_token in self.diccionario_adverbios):
-                if texto_token in self.diccionario_adverbios:
-                    sustitucion = self.diccionario_adverbios[texto_token]
-                else:
-                    adjetivo = texto_token[:-5]  # Quitar 'mente'
-                    sustitucion = f'de forma {adjetivo}'
+
+            # Priorizar la sustitución desde el diccionario
+            if texto_token.lower() in self.diccionario_adverbios:
+                sustitucion = self.diccionario_adverbios[texto_token.lower()]
                 sustitucion = sustitucion if not texto_token[0].isupper() else sustitucion.capitalize()
-
-                # Añadir espacio antes del token si es necesario
-                if not token.is_punct and not texto_modificado.endswith(' '):
-                    texto_modificado += ' '
-                texto_modificado += sustitucion
-
-                # Añadir espacio después del token si el siguiente token no es de puntuación
-                if token.whitespace_:
-                    texto_modificado += ' '
+            # Si no está en el diccionario pero termina en 'mente' y es un adverbio, usar transformación general
+            elif texto_token.endswith('mente') and token.pos_ == 'ADV':
+                adjetivo = texto_token[:-5]  # Quitar 'mente'
+                sustitucion = f'de manera {adjetivo}'
+                sustitucion = sustitucion if not texto_token[0].isupper() else sustitucion.capitalize()
             else:
-                # Añadir espacio antes del token si es necesario
-                if not token.is_punct and not texto_modificado.endswith(' '):
-                    texto_modificado += ' '
-                texto_modificado += texto_token
+                sustitucion = texto_token
 
-                # Añadir espacio después del token si el siguiente token no es de puntuación
-                if token.whitespace_:
-                    texto_modificado += ' '
+            # Añadir el token modificado o no modificado al texto final
+            texto_modificado += token.whitespace_ + sustitucion if token.i == 0 else sustitucion + token.whitespace_
 
         return texto_modificado
