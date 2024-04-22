@@ -52,3 +52,7 @@
         background-color: black;
         color: white;
     }
+
+    div.form-check-inline:has(> input#useImpersonal) {
+    display: none;
+}

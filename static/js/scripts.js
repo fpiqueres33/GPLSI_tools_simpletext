@@ -74,13 +74,14 @@ function toggleLexicoOptions(checked) {
     document.getElementById('useAnglicismos').checked = checked;
     document.getElementById('usePalabrasLargas').checked = checked;
     document.getElementById('usePalabrasDificiles').checked = checked;
+    document.getElementById('useNominalizacion').checked = checked;
 }
 
 // Función para cambiar las opciones sintácticas
 function toggleSintacticoOptions(checked) {
     document.getElementById('useComplejos').checked = checked;
     document.getElementById('useImpersonal').checked = checked;
-    document.getElementById('useNominalizacion').checked = checked;
+
 }
 
 // Event listeners

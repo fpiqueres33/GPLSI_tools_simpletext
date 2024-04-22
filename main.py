@@ -101,12 +101,13 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
         "habilitar_complejos": use_complejos,
         "habilitar_abreviaturas": use_abreviaturas,
         "habilitar_anglicismos": use_anglicismos,
-        "habilitar_palabras_dificiles": use_palabras_dificiles
+        "habilitar_palabras_dificiles": use_palabras_dificiles,
+        "habilitar_nominalizacion": use_nominalizacion,
 
     }
 
     opciones_sintactico = {
-        "habilitar_nominalizacion": use_nominalizacion,
+        # "habilitar_nominalizacion": use_nominalizacion,    22/04/2024 se pasa a léxico
         "habilitar_impersonales": use_impersonal,
         "habilitar_complejos": use_complejos
     }
@@ -144,9 +145,9 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
     #Procesar el texto final y añadir los glosarios.
     texto_final = texto_transformado_sintactico
     if glosario_lexico:
-        texto_final += "\nGLOSARIO LÉXICO:\n" + glosario_lexico
+        texto_final += "\n\nGLOSARIO LÉXICO:\n" + glosario_lexico
     if glosario_sintactico:
-        texto_final += "\nGLOSARIO SINTÁCTICO:\n" + glosario_sintactico
+        texto_final += "\n\nGLOSARIO SINTÁCTICO:\n" + glosario_sintactico
 
     # Ejecutar las detecciones
     detecciones_lexico = api_lexico.detecciones_lexico(input_text)

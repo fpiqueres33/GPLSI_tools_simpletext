@@ -293,18 +293,20 @@ class Anglicismos:
         return anglicismos_detectados
 
     def glosario_anglicismos(self, texto):
-        # Usar expresiones regulares para dividir el texto en palabras, ignorando la puntuación
-        texto_tokens = re.findall(r'\b\w+\b', texto.lower())
-        anglicismos_ordenados = sorted(self.diccionario.keys(), key=len, reverse=True)
-        glosario_list = []
+        # Crear una expresión regular para identificar los anglicismos
+        regex_pattern = r'\b(' + '|'.join(map(re.escape, self.diccionario.keys())) + r')\b'
+        # Encontrar todos los anglicismos en el texto
+        matches = re.findall(regex_pattern, texto, flags=re.IGNORECASE)
 
-        for anglicismo in anglicismos_ordenados:
-            anglicismo_lower = anglicismo.lower()
-            for token in texto_tokens:
-                if anglicismo_lower == token:
-                    entrada_glosario = f"{anglicismo.capitalize()}: {self.diccionario[anglicismo]}"
-                    if entrada_glosario not in glosario_list:  # Evita duplicados en el glosario
-                        glosario_list.append(entrada_glosario)
-                    # No es necesario el break aquí, ya que queremos encontrar todos los anglicismos
+        # Crear un set para evitar duplicados
+        glosario_set = set()
 
+        # Agregar los anglicismos encontrados al set, utilizando la capitalización original y obteniendo su descripción
+        for match in matches:
+            anglicismo_normalizado = match.lower()
+            if anglicismo_normalizado in self.diccionario:
+                glosario_set.add(f"{match}: {self.diccionario[anglicismo_normalizado]}")
+
+        # Convertir el set a una lista y ordenarla alfabéticamente
+        glosario_list = sorted(glosario_set)
         return glosario_list

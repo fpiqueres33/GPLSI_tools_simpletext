@@ -50,7 +50,8 @@ class Adverbios:
             "particularmente": "en particular",
             "realmente": "en verdad",
             "indudablemente": "sin lugar a dudas",
-            "evidentemente": "es evidente"
+            "evidentemente": "es evidente",
+            "apasionadamente": "de forma apasionada"
 
         }
 
@@ -59,7 +60,7 @@ class Adverbios:
         adverbios_mente = []
         for token in doc:
             if token.text.lower() in self.diccionario_adverbios or (
-                    token.text.endswith("mente") and token.pos_ == "ADV"):
+                    token.text.endswith("mente") and token.pos_ == "ADJ"):
                 # Añadir el texto del token y su etiqueta POS.
                 adverbios_mente.append((token.text, token.pos_))
         return adverbios_mente

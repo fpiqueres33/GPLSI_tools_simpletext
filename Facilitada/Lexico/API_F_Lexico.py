@@ -33,7 +33,7 @@ class API_Lexico:
 
     def transformar_lexico(self, texto):
         # Aquí se aplicarán las transformaciones según la configuración
-        texto_transformado = texto
+        texto_transformado = "\n"+texto
         glosario_lines = []
         glosario = ""
 
@@ -63,7 +63,7 @@ class API_Lexico:
         if glosario_lines:  # Aseguramos agregar el glosario solo si hay detecciones.
             glosario = "\n".join(glosario_lines)
 
-        return texto_transformado, glosario
+        return texto_transformado.lstrip('\n'), glosario
 
     def detecciones_lexico(self, texto):
         detecciones = {}

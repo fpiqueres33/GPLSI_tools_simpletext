@@ -13,9 +13,12 @@ class ApiSintactico:
 
         # Inicializar las clases para cada transformación
         self.nominalizacion = Nominalizacion() if habilitar_nominalizacion else None
-        self.impersonales = Impersonal() if habilitar_impersonales else None
+        # self.impersonales = Impersonal() if habilitar_impersonales else None
+        self.impersonales = None
         self.complejos = Complejos() if habilitar_complejos else None
 
+
+    # 22/04/2024 --> se desahbilitan impersonales.
     def transformar_sintactico(self, texto):
         # Aquí se aplicarán las transformaciones según la configuración
         texto_transformado = texto
@@ -32,10 +35,10 @@ class ApiSintactico:
         if self.habilitar_complejos and self.complejos:
             texto_transformado = self.complejos.detectar_y_sustituir_conectores(texto_transformado)
 
-        if oraciones_impersonales:  # Aseguramos agregar el glosario solo si hay oraciones impersonales
+        """if oraciones_impersonales:  # Aseguramos agregar el glosario solo si hay oraciones impersonales
             sentence_impersonales = "\n".join(oraciones_impersonales)
             # texto_transformado += "\nORACIONES IMPERSONALES:\n" + oraciones
-
+        """
         return texto_transformado, sentence_impersonales
 
     def detecciones_sintactico(self, texto):
