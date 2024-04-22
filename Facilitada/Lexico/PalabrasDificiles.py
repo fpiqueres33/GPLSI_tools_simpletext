@@ -56,4 +56,3 @@ class PalabrasDificiles:
                         glosario_list.append(entrada_glosario)
 
         return glosario_list
-

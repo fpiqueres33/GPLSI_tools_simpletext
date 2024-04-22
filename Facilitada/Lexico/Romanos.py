@@ -60,5 +60,3 @@ class Romanos:
                         # Reemplazar en el texto
                         new_text = new_text.replace(ent.text, nuevo_nombre)
         return new_text
-
-

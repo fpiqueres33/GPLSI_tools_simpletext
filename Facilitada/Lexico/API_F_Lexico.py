@@ -43,6 +43,9 @@ class API_Lexico:
         if self.habilitar_anglicismos and self.anglicismos:
             glosario_lines += self.anglicismos.glosario_anglicismos(texto)
 
+        if self.habilitar_adverbios and self.adverbios:
+            texto_transformado = self.adverbios.sustituir_adverbios(texto_transformado)
+
         if self.habilitar_superlativos and self.superlativos:
             texto_transformado = self.superlativos.reemplazar_superlativos(texto_transformado)
 
@@ -52,9 +55,6 @@ class API_Lexico:
         if self.habilitar_romanos and self.romanos:
             texto_transformado = self.romanos.reemplazar_romanos(texto_transformado)
             texto_transformado = self.romanos.reemplazar_ordinales_en_nombres(texto_transformado)
-
-        if self.habilitar_adverbios and self.adverbios:
-            texto_transformado = self.adverbios.sustituir_adverbios(texto_transformado)
 
         # Añadir las palabras difíciles al glosario sin modificar el texto transformado
         if self.habilitar_palabras_dificiles and self.palabras_dificiles:
@@ -74,6 +74,9 @@ class API_Lexico:
         if self.habilitar_anglicismos and self.anglicismos:
             detecciones['anglicismos'] = self.anglicismos.detectar_anglicismos(texto)
 
+        if self.habilitar_adverbios and self.adverbios:
+            detecciones['adverbios'] = self.adverbios.detectar_adverbios_mente(texto)
+
         if self.habilitar_superlativos and self.superlativos:
             detecciones['superlativos'] = self.superlativos.detectar_superlativos(texto)
 
@@ -82,9 +85,6 @@ class API_Lexico:
 
         if self.habilitar_romanos and self.romanos:
             detecciones['romanos'] = self.romanos.detectar_romanos(texto)
-
-        if self.habilitar_adverbios and self.adverbios:
-            detecciones['adverbios'] = self.adverbios.detectar_adverbios_mente(texto)
 
         if self.palabras_largas and self.palabras_largas:
             detecciones['palabras_largas'] = self.palabras_largas.detectar_palabras_largas(texto)

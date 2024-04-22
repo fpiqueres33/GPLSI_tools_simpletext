@@ -68,7 +68,3 @@ class Romanos2:
                         nuevo_nombre = " ".join(tokens[:-1]) + " " + ordinal
                         new_text = new_text.replace(ent.text, nuevo_nombre)
         return new_text
-
-
-
-

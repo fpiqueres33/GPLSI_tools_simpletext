@@ -1,56 +1,54 @@
-        .options-container {
-            position: fixed;
-            left: 5px;
-            top: 90px; /* Ajusta según sea necesario */
-            width: 180px; /* Ajusta el ancho según sea necesario */
-            background-color: #f8f9fa; /* Color de fondo, cambia según tus preferencias */
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+.options-container {
+        position: fixed;
+        left: 5px;
+        top: 90px;
+        width: 150px; /* Caja más pequeña */
+        background-color: #f8f9fa;
+        padding: 8px; /* Padding más pequeño */
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
 
-        .options-container h6 {
-            margin-bottom: 12px; /* Ajustar el espacio debajo del encabezado del grupo */
-            font-size: 1.1em; /* Ajustar el tamaño de la letra */
-            line-height: 1.6; /* Ajustar el interlineado */
-        }
+    .options-container h6 {
+        margin-bottom: 10px;
+        font-size: 0.9em; /* Letra más pequeña */
+        line-height: 1.4;
+    }
 
-        .options-container .form-check {
-            margin-bottom: 20px;
-            font-size: 1em; /* Ajustar el tamaño de la letra */
-            line-height: 1.4; /* Ajustar el interlineado */
-        }
+    .options-container .form-check {
+        margin-bottom: 10px;
+        font-size: 0.9em; /* Letra más pequeña */
+        line-height: 1.2;
+    }
 
-        .form-check {
-        margin-bottom: 10px; /* Espacio debajo de cada casilla de verificación */
-        padding-left: 20px
-        }
+    .form-check {
+        margin-bottom: 8px;
+        padding-left: 20px;
+    }
 
-        .form-check-input {
-        margin-top: 0.3em; /* Ajusta el alineamiento vertical de la casilla */
-        margin-right: 0.5em; /* Espacio entre la casilla y la etiqueta */
-        cursor: pointer; /* Cambia el cursor al pasar por encima */
-        }
+    .form-check-input {
+        margin-top: 0.3em;
+        margin-right: 0.5em;
+        cursor: pointer;
+    }
 
-        .form-check-label {
-        cursor: pointer; /* Cambia el cursor al pasar por encima */
-        font-size: 0.9em
-        }
+    .form-check-label {
+        cursor: pointer;
+        font-size: 0.8em; /* Letra más pequeña */
+    }
 
-        .options-detail {
-            margin-left: 20px; /* Añade sangría a las opciones detalladas */
-            font-size: 0.8em; /* Tamaño de fuente más pequeño para las opciones detalladas */
-        }
+    .options-detail {
+        margin-left: 20px;
+        font-size: 0.7em; /* Letra aún más pequeña para detalles */
+    }
 
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
+    .logo {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
 
-        .selected-button {
-            background-color: black;
-            color: white;
-        }
-
-
+    .selected-button {
+        background-color: black;
+        color: white;
+    }

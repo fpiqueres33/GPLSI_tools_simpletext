@@ -208,4 +208,3 @@ class Abreviaturas:
                 else:
                     inicio += len(abreviatura)
         return abreviaturas_detectadas
-

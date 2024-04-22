@@ -1,10 +1,9 @@
 import re
-
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from num2words import num2words
 
-# nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
+nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
 
 
 class Numero:
@@ -379,6 +378,5 @@ class Numero:
                     detected_elements['números escritos'].append(f"{word} ({numero_escrito})")
 
         return detected_elements
-
 
 

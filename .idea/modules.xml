@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tools-simpletext-master.iml" filepath="$PROJECT_DIR$/.idea/tools-simpletext-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GLPSI_tools-simpletext.iml" filepath="$PROJECT_DIR$/.idea/GLPSI_tools-simpletext.iml" />
     </modules>
   </component>
 </project>
