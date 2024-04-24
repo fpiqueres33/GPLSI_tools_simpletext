@@ -3,6 +3,7 @@ import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from num2words import num2words
 
+
 nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
 
 
@@ -20,12 +21,15 @@ class Numero:
             1000: 'mil'
         }
         self.numeros_escritos = {
+            #Se omiten los ordinales hasta el 10
             "cero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5,
             "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10,
             "once": 11, "doce": 12, "trece": 13, "catorce": 14, "quince": 15,
             "dieciséis": 16, "diecisiete": 17, "dieciocho": 18, "diecinueve": 19,
-            "veinte": 20, "veintiuno": 21, "veintidós": 22, "veintidos": 22, "veintitrés": 23, "veintitres": 23, "veinticuatro": 24,
-            "veinticinco": 25, "veintiséis": 26, "veintiseis": 26, "veintisiete": 27, "veintiocho": 28, "veintinueve": 29,
+            "veinte": 20, "veintiuno": 21, "veintidós": 22, "veintidos": 22, "veintitrés": 23, "veintitres": 23,
+            "veinticuatro": 24,
+            "veinticinco": 25, "veintiséis": 26, "veintiseis": 26, "veintisiete": 27, "veintiocho": 28,
+            "veintinueve": 29,
             "treinta": 30, "treinta y uno": 31, "treinta y dos": 32, "treinta y tres": 33, "treinta y cuatro": 34,
             "treinta y cinco": 35, "treinta y seis": 36, "treinta y siete": 37, "treinta y ocho": 38,
             "treinta y nueve": 39,
@@ -49,90 +53,194 @@ class Numero:
             "noventa y cinco": 95, "noventa y seis": 96, "noventa y siete": 97, "noventa y ocho": 98,
             "noventa y nueve": 99,
             "cien": 100, "ciento": 100, "doscientos": 200, "trescientos": 300, "cuatrocientos": 400,
-            "quinientos": 500, "seiscientos": 600, "setecientos": 700, "ochocientos": 800, "novecientos": 900,
-            "primero": 1, "primera": 1, "segundo": 2, "segunda": 2, "tercero": 3, "tercera": 3,
-            "cuarto": 4, "cuarta": 4, "quinto": 5, "quinta": 5, "sexto": 6, "sexta": 6, "séptimo": 7, "séptima": 7,
-            "octavo": 8, "octava": 8, "noveno": 9, "novena": 9,
-            "décimo": 10, "décima": 10, "undécimo": 11, "undécima": 11,
-            "duodécimo": 12, "duodécima": 12, "decimotercero": 13, "decimotercera": 13,
+            "quinientos": 500, "seiscientos": 600, "600": 700, "700": 800, "800": 900,
+            # Se omiten ordinales hasta el 10
+            # "primero": 1, "primera": 1, "primer": 1, "segundo": 2, "segunda": 2, "según": 2,
+            # "tercer": 3, "tercero": 3,
+            # "tercera": 3,
+            # "primeros": 1, "primeras": 1, "segundos": 2, "segundas": 2,
+            # "terceros": 3, "terceras": 3,
+            # "cuarto": 4, "cuarta": 4, "quinto": 5, "quinta": 5,
+            # "sexto": 6, "sexta": 6, "sextos": 6, "sextas": 6,
+            # "séptimo": 7, "séptima": 7, "séptimos": 7, "séptimas": 7,
+            # "octavo": 8, "octava": 8, "noveno": 9, "novena": 9,
+            # "octavos": 8, "octavas": 8, "novenos": 9, "novenas": 9,
+            # "décimo": 10, "décima": 10, "décimos": 10, "décimas": 10,
+            "undécimo": 11, "undécima": 11, "undécimos": 11, "undécimas": 11,
+            "duodécimo": 12, "duodécima": 12, "decimotercero": 13, "decimotercera": 13, "duodécimos": 12,
+            "duodécimas": 12, "decimoterceros": 13, "decimoterceras": 13,
             "decimocuarto": 14, "decimocuarta": 14, "decimoquinto": 15, "decimoquinta": 15,
+            "decimocuartos": 14, "decimocuartas": 14, "decimoquintos": 15, "decimoquintas": 15,
             "decimosexto": 16, "decimosexta": 16, "decimoséptimo": 17, "decimoséptima": 17,
+            "decimosextos": 16, "decimosextas": 16, "decimoséptimos": 17, "decimoséptimas": 17,
             "decimoctavo": 18, "decimoctava": 18, "decimonoveno": 19, "decimonovena": 19,
-            "vigésimo": 20, "vigésima": 20, "vigésimo primero": 21, "vigésima primera": 21,
-            "vigésimo segundo": 22, "vigésima segunda": 22, "vigésimo tercero": 23, "vigésima tercera": 23,
-            "vigésimo cuarto": 24, "vigésima cuarta": 24, "vigésimo quinto": 25, "vigésima quinta": 25,
-            "vigésimo sexto": 26, "vigésima sexta": 26, "vigésimo séptimo": 27, "vigésima séptima": 27,
-            "vigésimo octavo": 28, "vigésima octava": 28, "vigésimo noveno": 29, "vigésima novena": 29,
-            "trigésimo": 30, "trigésima": 30
+            "decimoctavos": 18, "decimoctavas": 18, "decimonovenos": 19, "decimonovenas": 19,
+            "décimo_primero": 11, "décimo_primera": 11, "décimo_primeros": 11, "décimo_primeras": 11,
+            "décimo_segundo": 12, "décimo_segunda": 12, "décimo_segundos": 12, "décimo_segundas": 12,
+            "décimo_tercero": 13, "décimo_tercera": 13, "décimo_terceros": 13, "décimo_terceras": 13,
+            "décimo_cuarto": 14, "décimo_cuarta": 14, "décimo_cuartos": 14, "décimo_cuartas": 14,
+            "décimo_quinto": 15, "décimo_quinta": 15, "décimo_quintos": 15, "décimo_quintas": 15,
+            "décimo_sexto": 16, "décimo_sexta": 16, "décimo_sextos": 16, "décimo_sextas": 16,
+            "décimo_séptimo": 17, "décimo_séptima": 17, "décimo_séptimos": 17, "décimo_séptimas": 17,
+            "décimo_octavo": 18, "décimo_octava": 18, "décimo_octavos": 18, "décimo_octavas": 18,
+            "décimo_noveno": 19, "décimo_novena": 19, "décimo_novenos": 19, "décimo_novenas": 19,
+            "vigésimo": 20, "vigésima": 20, "vigésimo_primero": 21, "vigésimo_primera": 21,
+            "vigésimos": 20, "vigésimas": 20, "vigésimo_primeros": 21, "vigésimo_primeras": 21,
+            "vigésimo_segundo": 22, "vigésimo_segunda": 22, "vigésimo_tercero": 23, "vigésima_tercera": 23,
+            "vigésimo_segundos": 22, "vigésimo_segundas": 22, "vigésimo_terceros": 23, "vigésimo_terceras": 23,
+            "vigésimo_cuarto": 24, "vigésimo_cuarta": 24, "vigésimo_quinto": 25, "vigésimo_quinta": 25,
+            "vigésimo_cuartos": 24, "vigésimo_cuartas": 24, "vigésimo_quintos": 25, "vigésimo_quintas": 25,
+            "vigésimo_sexto": 26, "vigésimo_sexta": 26, "vigésimo_séptimo": 27, "vigésimo_séptima": 27,
+            "vigésimo_sextos": 26, "vigésimo_sextas": 26, "vigésimo_séptimos": 27, "vigésimo_séptimas": 27,
+            "vigésimo_octavo": 28, "vigésimo_octava": 28, "vigésimo_noveno": 29, "vigésimo_novena": 29,
+            "vigésimo_octavos": 28, "vigésimo_octavas": 28, "vigésimo_novenos": 29, "vigésimo_novenas": 29,
+            "trigésimo": 30, "trigésima": 30, "trigésimos": 30, "trigésimas": 30
 
         }
 
-        self.date_pattern = re.compile(r'(\d{2})[-/](\d{2})[-/](\d{2,4})')
+        self.date_pattern = re.compile(
+            r'(\d{2})[-/.](\d{2})[-/.](\d{2,4})')  #Se establece el patrón de separación con - / .
         self.hour_pattern = re.compile(r'([01]?[0-9]|2[0-3]):([0-5][0-9])')
         self.phone_number_pattern = re.compile(r'\b\d{9}\b')
         self.number_pattern = re.compile(r'\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b|\b\d+(?:,\d+)?\b')
-        self.percentage_pattern = re.compile(r'%')
+        #self.percentage_pattern = re.compile(r'%')
+        self.percentage_pattern = re.compile(r'\b(el\s+)?(\d{1,3}(?:,\d+)?%)', re.IGNORECASE)
 
-        # Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
+    # Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
+
     def marcar_saltos_de_linea(self, text):
         return text.replace('\n', 'ZQRTESqwuio')
 
     def restaurar_saltos_de_linea(self, text):
         return text.replace('ZQRTESqwuio', '\n')
 
+    #Preproceso inicial para las palabras de diccionario con dos o mas tokens
+    def sustituir_ordinales_compuestos(self, text):
+        # Diccionario de ordinales compuestos a sus valores numéricos consolidados
+        ordinales_compuestos = {
+            'décimo primero': 'décimo_primero', 'décimo primer': 'décimo_primer',
+            'décima primera': 'décima_primera',
+            'décimo primeros': 'décimo_primeros',
+            'décima primeras': 'décima_primeras',
+            'décimo segundo': 'décimo_segundo', 'décimo segun': 'décimo_segun',
+            'décima segunda': 'décima_segunda',
+            'décimo segundos': 'décimo_segundos',
+            'décimo segundas': 'décimo_segundas',
+            'décimo tercero': 'décimo_tercero', 'décimo tercer': 'décimo_tercer',
+            'décima tercera': 'décima_tercera',
+            'décimo terceros': 'décimo_terceros',
+            'décimo terceras': 'décimo_terceras',
+            'décimo cuarto': 'décimo_cuarto',
+            'décima cuarta': 'décima_cuarta',
+            'décimo cuartos': 'décimo_cuartos',
+            'décimo cuartas': 'décimo_cuartas',
+            'décimo quinto': 'décimo_quinto',
+            'décima quinta': 'décima_quinta',
+            'décimo quintos': 'décimo_quintos',
+            'décimo quintas': 'décimo_quintas',
+            'décimo sexto': 'décimo_sexto',
+            'décima sexta': 'décima_sexta',
+            'décimo sextos': 'décimo_sextos',
+            'décimo sextas': 'décimo_sextas',
+            'décimo séptimo': 'décimo_séptimo',
+            'décima séptima': 'décima_séptima',
+            'décimo séptimos': 'décimo_séptimos',
+            'décimo séptimas': 'décimo_séptimas',
+            'décimo octavo': 'décimo_octavo',
+            'décima octava': 'décima_octava',
+            'décimo octavos': 'décimo_octavos',
+            'décimo octavas': 'décimo_octavas',
+            'décimo noveno': 'décimo_noveno',
+            'décimo novena': 'décimo_novena',
+            'décimo novenos': 'décimo_novenos',
+            'décimo novenas': 'décimo_novenas',
+            'vigésimo primero': 'vigésimo_primero', 'vigésimo primer': 'vigésimo_primer',
+            'vigésima primera': 'vigésima_primera',
+            'vigésimos primeros': 'vigésimos_primeros',
+            'vigésimas primeras': 'vigésimas_primeras',
+            'vigésimo segundo': 'vigésimo_segundo', 'vigésimo segun': 'vigésimo_segun',
+            'vigésima segunda': 'vigésima_segunda',
+            'vigésimos segundos': 'vigésimos_segundos',
+            'vigésimas segundas': 'vigésimas_segundas',
+            'vigésimo tercero': 'vigésimo_tercero', 'vigésimo tercer': 'vigésimo_tercer',
+            'vigésima tercera': 'vigésima_tercera',
+            'vigésimos terceros': 'vigésimos_terceros',
+            'vigésimas terceras': 'vigésimas_terceras',
+            'vigésimo cuarto': 'vigésimo_cuarto',
+            'vigésima cuarta': 'vigésima_cuarta',
+            'vigésimos cuartos': 'vigésimos_cuartos',
+            'vigésimas cuartas': 'vigésimas_cuartas',
+            'vigésimo quinto': 'vigésimo_quinto',
+            'vigésima quinta': 'vigésima_quinta',
+            'vigésimos quintos': 'vigésimos_quintos',
+            'vigésimas quintas': 'vigésimas_quintas',
+            'vigésimo sexto': 'vigésimo_sexto',
+            'vigésima sexta': 'vigésima_sexta',
+            'vigésimos sextos': 'vigésimos_sextos',
+            'vigésimas sextas': 'vigésimas_sextas',
+            'vigésimo séptimo': 'vigésimo_séptimo',
+            'vigésima séptima': 'vigésima_séptima',
+            'vigésimos séptimos': 'vigésimos_séptimos',
+            'vigésimas séptimas': 'vigésimas_séptimas',
+            'vigésimo octavo': 'vigésimo_octavo',
+            'vigésima octava': 'vigésima_octava',
+            'vigésimos octavos': 'vigésimos_octavos',
+            'vigésimas octavas': 'vigésimas_octavas',
+            'vigésimo noveno': 'vigésimo_noveno',
+            'vigésima novena': 'vigésima_novena',
+            'vigésimos novenos': 'vigésimos_novenos',
+            'vigésimas novenas': 'vigésimas_novenas'
+        }
+
+        # Consolidar ordinales compuestos en un solo token
+
+        for ordinal, consolidado in ordinales_compuestos.items():
+            text = re.sub(r'\b' + re.escape(ordinal) + r'\b', consolidado, text, flags=re.IGNORECASE)
+
+        return text
+
 
     def reemplazar_numeros(self, text):
-        # transformamos los números escritos como primer paso del pipeline para las siguientes transformaciones
-        texto_marcado = self.marcar_saltos_de_linea(text)
-        text = self.transformar_numeros_escritos(texto_marcado)
+        # Transformación inicial de ordinales compuestos y marcado de saltos de línea
+        text = self.sustituir_ordinales_compuestos(text)
+        text = self.marcar_saltos_de_linea(text)
+        text = self.transformar_numeros_escritos(text)
 
-        # ejecutamos pipeline de lectura simplificada
+        # Aplicar transformaciones de porcentajes
+        matches = list(self.percentage_pattern.finditer(text))
+        for match in reversed(matches):
+            text = self.transform_percentage(text, match)
+
+        # Procesamiento adicional si es necesario
         sentences = sent_tokenize(text)
         transformed_sentences = []
-        eliminar_siguiente_token = False  # Variable para controlar la eliminación del siguiente token
-        palabras_a_eliminar = ["horas", "hora", "h", "Horas", "Hora", "h", "H", "h.",
-                               "H."]  # Lista de palabras clave a eliminar
-
         for sentence in sentences:
             tokens = word_tokenize(sentence)
             transformed_words = []
 
             for i, word in enumerate(tokens):
-
-                if eliminar_siguiente_token:
-                    eliminar_siguiente_token = False
-                    continue  # Omitir este token
-
+                # Procesar fechas, horas, números de teléfono y otros números según sea necesario
                 if self.date_pattern.fullmatch(word):
                     word = self.transform_dates(word)
-
                 elif self.hour_pattern.fullmatch(word):
-                    # word = self.transformar_horas(word)
                     hour, minutes = self.hour_pattern.fullmatch(word).groups()
                     if hour == "13" and i > 0 and tokens[i - 1].lower() == "las":
                         transformed_words[-1] = "la"
                     word = self.transformar_horas(word)
-                    if i + 1 < len(tokens) and tokens[i + 1].lower() in palabras_a_eliminar:
-                        eliminar_siguiente_token = True
-
                 elif self.phone_number_pattern.fullmatch(word):
                     if self.check_phone_context(tokens, i):
                         word = self.transform_phone_number(word)
-                elif '%' in word and i > 0 and self.number_pattern.fullmatch(tokens[i - 1]):
-                    # Procesar primero los porcentajes
-                    transformed_words[-1] = self.transform_percentage(tokens[i - 1])
-                    continue  # Omitir añadir el símbolo de porcentaje
                 elif self.number_pattern.fullmatch(word):
                     if not self.is_in_date_context(tokens, i):
                         word = self.transform_numbers(word)
-
                 transformed_words.append(word)
 
             transformed_sentence = ' '.join(transformed_words)
             transformed_sentence = self.correct_spaces_around_punctuation(transformed_sentence)
             transformed_sentences.append(transformed_sentence)
-            texto_final = self.restaurar_saltos_de_linea(' '.join(transformed_sentences))
 
+        # Restaurar saltos de línea y retornar el texto final
+        texto_final = self.restaurar_saltos_de_linea(' '.join(transformed_sentences))
         return texto_final
 
     def correct_spaces_around_punctuation(self, text):
@@ -193,6 +301,9 @@ class Numero:
 
         return f"{hours_int} {hora_conjuncion}{minutes_str} {periodo}"
 
+
+
+
     def check_phone_context(self, tokens, index):
         prev_context = tokens[max(index - 2, 0):index]
         next_context = tokens[index + 1:min(index + 3, len(tokens))]
@@ -204,14 +315,23 @@ class Numero:
         return f"{word[0:3]} {word[3:5]} {word[5:7]} {word[7:9]}"
 
     # Método para la conversión de porcentajes
-    def transform_percentage(self, word):
-        # Asumimos que 'word' es un número
-        number = float(word.replace(',', '.'))
+    def transform_percentage(self, text, match):
+        # Extraer el grupo completo y el porcentaje del match
+        full_text, el_prefix, percentage = match.group(0), match.group(1), match.group(2)
+        number = float(percentage.replace('%', '').replace(',', '.'))
         rounded_number = round(number)
-        if rounded_number % 10 == 0:
-            return f"{rounded_number // 10} de cada 10"
+
+        # Caso especial para 50%
+        if rounded_number == 50:
+            result = "la mitad"
+        elif rounded_number % 10 == 0:
+            result = f"{rounded_number // 10} de cada 10"
         else:
-            return f"{rounded_number} de cada 100"
+            result = f"{rounded_number} de cada 100"
+
+        # Reemplazar en el texto según el match, eliminando "el " si está presente
+        start, end = match.span(0)
+        return text[:start] + result + text[end:]
 
     # Métodos para el tratamiento del número entero y números con decimales.
     def _clean_and_convert_number(self, word):
@@ -261,9 +381,9 @@ class Numero:
         number = self._clean_and_convert_number(word)
         # Aplicamos casos especiales para los números indicados en el algoritmo de __init__
         if number in self.casos_especiales:
-            # Usar la representación especial si el número es un caso especial
             return self.casos_especiales[number]
-        # Si el número es menor que 100 y es un entero, lo devolvemos tal cual.
+
+            # Si el número es menor que 100 y es un entero, lo devolvemos tal cual.
         if number < 100:
             number = int(round(number, 0))
             return str(number)  # Convertimos el número a entero y luego a cadena
@@ -281,19 +401,20 @@ class Numero:
             if rounded_number_int >= billon:
                 cantidad = rounded_number_int // billon
                 unidad = "billón" if cantidad == 1 else "billones"
-
+                return f"{prefix}{cantidad} {unidad}"
             elif rounded_number_int >= millon:
                 cantidad = rounded_number_int // millon
                 unidad = "millón" if cantidad == 1 else "millones"
-
+                return f"{prefix}{cantidad} {unidad}"
             elif rounded_number_int >= mil:
                 cantidad = rounded_number_int // mil
                 unidad = "mil"
+                return f"{prefix}{cantidad} {unidad}"
+            elif 100 <= number < 1000:
+                # Para los números entre 100 y 1000, usar números directamente
+                return f"{prefix}{rounded_number_int}"
 
-            else:
-                return f"{prefix}{num2words(rounded_number_int, lang='es')}"
-
-            return f"{prefix}{cantidad} {unidad}"
+            return f"{prefix}{num2words(rounded_number_int, lang='es')}"
 
         # Diccionario con las detecciones:
 
