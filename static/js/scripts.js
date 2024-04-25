@@ -126,4 +126,68 @@ window.onload = function() {
             selectedButton.classList.add('selected-button');
         }
     }
+    // Restaurar el estado de las casillas de verificación y opciones
+    var checkboxStates = JSON.parse(localStorage.getItem('checkboxStates'));
+    var optionsDisplay = JSON.parse(localStorage.getItem('optionsDisplay'));
+
+    if (checkboxStates) {
+        for (var id in checkboxStates) {
+            var checkbox = document.getElementById(id);
+            if (checkbox) {
+                checkbox.checked = checkboxStates[id];
+            }
+        }
+    }
+
+    if (optionsDisplay) {
+        document.getElementById('optionsLexico').style.display = optionsDisplay['optionsLexico'];
+        document.getElementById('optionsSintactico').style.display = optionsDisplay['optionsSintactico'];
+    }
 };
+
+
+// Agregar evento de clic al botón Dislexia
+document.getElementById('botonDislexia').addEventListener('click', function() {
+    // Marcar todas las opciones de léxico y sintáctico
+    toggleLexicoOptions(true);
+    toggleSintacticoOptions(true);
+    // Asegurarse de que las opciones de Léxico y Sintáctico se muestren
+    toggleOptions('optionsLexico', true);
+    toggleOptions('optionsSintactico', true);
+    // Desmarcar el botón Trastorno si está marcado
+    document.getElementById('botonTrastorno').checked = false;
+});
+
+// Agregar evento de clic al botón Trastorno
+document.getElementById('botonTrastorno').addEventListener('click', function() {
+    // Desmarcar todas las opciones primero
+    toggleLexicoOptions(false);
+    toggleSintacticoOptions(false);
+    // Marcar solo la opción de Palabras Largas y mostrar las opciones
+    document.getElementById('usePalabrasLargas').checked = true;
+    toggleOptions('optionsLexico', true);
+    toggleOptions('optionsSintactico', true);
+    // Desmarcar el botón Dislexia si está marcado
+    document.getElementById('botonDislexia').checked = false;
+});
+
+function saveCurrentState() {
+    // Guardar el estado de las casillas de verificación
+    var checkboxes = document.querySelectorAll('.form-check-input');
+    var checkboxStates = {};
+    checkboxes.forEach(function (checkbox) {
+        checkboxStates[checkbox.id] = checkbox.checked;
+    });
+    localStorage.setItem('checkboxStates', JSON.stringify(checkboxStates));
+
+    // Guardar el estado de visibilidad de las opciones
+    var optionsDisplay = {
+        'optionsLexico': document.getElementById('optionsLexico').style.display,
+        'optionsSintactico': document.getElementById('optionsSintactico').style.display
+    };
+    localStorage.setItem('optionsDisplay', JSON.stringify(optionsDisplay));
+}
+
+// Agregar el guardado de estado al botón de Lectura Facilitada
+document.querySelector('button[value="simplify"]').addEventListener('click', saveCurrentState);
+

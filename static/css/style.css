@@ -56,3 +56,11 @@
     div.form-check-inline:has(> input#useImpersonal) {
     display: none;
 }
+
+    #divMostrarDeteccion {
+    display: none;
+}
+
+    #botonTopicos {
+        display: none;
+    }

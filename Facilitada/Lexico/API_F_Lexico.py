@@ -61,7 +61,7 @@ class API_Lexico:
             glosario_lines += self.palabras_dificiles.glosario_palabras_dificiles(texto)
 
         if glosario_lines:  # Aseguramos agregar el glosario solo si hay detecciones.
-            glosario = "\n".join(glosario_lines)
+            glosario = "\n\n".join(glosario_lines)
 
         return texto_transformado.lstrip('\n'), glosario
 

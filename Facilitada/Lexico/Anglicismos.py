@@ -305,7 +305,7 @@ class Anglicismos:
         for match in matches:
             anglicismo_normalizado = match.lower()
             if anglicismo_normalizado in self.diccionario:
-                glosario_set.add(f"{match}: {self.diccionario[anglicismo_normalizado]}")
+                glosario_set.add(f"{match.capitalize()}: {self.diccionario[anglicismo_normalizado]}")
 
         # Convertir el set a una lista y ordenarla alfabéticamente
         glosario_list = sorted(glosario_set)

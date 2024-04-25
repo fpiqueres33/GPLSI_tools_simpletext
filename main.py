@@ -142,10 +142,11 @@ def process_simplify(input_text, use_adverbios, use_numeros, use_romanos, use_su
     texto_transformado_lexico, glosario_lexico = api_lexico.transformar_lexico(input_text)
     texto_transformado_sintactico, glosario_sintactico = api_sintactico.transformar_sintactico(texto_transformado_lexico)
 
-    #Procesar el texto final y añadir los glosarios.
+    # Procesar el texto final y añadir los glosarios.
     texto_final = texto_transformado_sintactico
     if glosario_lexico:
         texto_final += "\n\nGLOSARIO LÉXICO:\n" + glosario_lexico
+
     if glosario_sintactico:
         texto_final += "\n\nGLOSARIO SINTÁCTICO:\n" + glosario_sintactico
 
