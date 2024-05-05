@@ -1,8 +1,10 @@
 import re
+from Facilitada.Lexico.DiccionarioAnglicismos import *
 
 
 class Anglicismos:
-    def __init__(self, diccionario=None):
+    def __init__(self, diccionario=dict_anglicismos):   # Se inicializa este diccionario con los dominios indendientes.
+                                                        # Si se quiere mostrar el dominio indicar   =None
         if diccionario is None:
             diccionario = {
                 'afterwork': 'Afterwork es una actividad social que hacen compañeros de trabajo fuera del horario laboral.(Gastronomía)',
@@ -17,7 +19,8 @@ class Anglicismos:
                 'banner': 'Pancarta. Un banner, también llamado banderola o pancarta, es un tipo de publicidad que se muestra en internet. (Tecnología)',
                 'barman': 'Un barman es la persona que sirve a los clientes en la barra de un bar, cervecería, taberna o similar. (Gastronomía)',
                 'Batch cooking': 'Preparación de comida. (Gastronomía)',
-                'beatbox(ing)': 'Beatboxing es hacer música con la boca. Se hace imitando sonidos de instrumentos como la batería y los platillos. (Música)',
+                'beatbox': 'Beatboxing es hacer música con la boca. Se hace imitando sonidos de instrumentos como la batería y los platillos. (Música)',
+                'beatboxing': 'Beatboxing es hacer música con la boca. Se hace imitando sonidos de instrumentos como la batería y los platillos. (Música)',
                 'best seller': 'Superventas. Un libro, disco, canción o videojuego que mucha gente compra y se vuelve muy popular. (Entretenimiento)',
                 'binge-watching': 'Binge-watching significa ver muchos episodios de una serie de televisión seguidos. (Entretenimiento)',
                 'biopic': 'Película biográfica. Es un tipo de película que cuenta la vida de una persona real o un grupo de personas, usando actores y dramatización. (Entretenimiento)',
@@ -109,7 +112,7 @@ class Anglicismos:
                 'hot pot': 'El hot pot es una comida donde se cocina la comida en un caldo caliente que está en el centro de la mesa. (Gastronomía)',
                 'influencer': 'Celebridad de internet. Es alguien que tiene muchas personas que lo siguen en redes sociales como Instagram o YouTube. Estas personas escuchan lo que dice y comparten sus mensajes y recomendaciones. (Moda)',
                 'jacuzzi': 'Baño, hidromasaje. Es una bañera con agua caliente que tiene diferentes salidas para llenar y vaciar el agua. (General)',
-                'jeans': 'Pantalones vaqueros. tejanos, Tipo de pantalón confeccionado con tela vaquera (Moda)',
+                'jeans': 'Pantalones vaqueros. tejanos, Tipo de pantalón confeccionado con tela vaquera. (Moda)',
                 'jet lag': 'Jet lag es cuando te sientes mal después de un largo viaje en avión con cambios en los horarios. Esto hace que tu cuerpo se desajuste. (Turismo)',
                 'jumpscare': 'Susto repentino. Un jumpscare es una técnica de asustar que se usa en películas de terror y videojuegos de terror. Consiste en sorprender al espectador con un cambio repentino en la imagen o evento, la mayoría de veecs acompañado de un sonido fuerte y desagradable. (Entretenimiento)',
                 'junior': 'Júnior, joven. (General)',
@@ -261,9 +264,9 @@ class Anglicismos:
                 if (inicio == 0 or not texto[inicio - 1].isalnum()) and (fin == len(texto) or not texto[fin].isalnum()):
                     # Verificar si la palabra en el texto original estaba capitalizada
                     if texto_original[inicio].isupper():
-                        reemplazo = self.diccionario[anglicismo.lower()].capitalize()
+                        reemplazo = self.diccionario[anglicismo[1].lower()].capitalize()
                     else:
-                        reemplazo = self.diccionario[anglicismo.lower()]
+                        reemplazo = self.diccionario[anglicismo[1].lower()]
 
                     texto_original = texto_original[:inicio] + reemplazo + texto_original[fin:]
                     texto = texto[:inicio] + reemplazo.lower() + texto[
@@ -305,7 +308,8 @@ class Anglicismos:
         for match in matches:
             anglicismo_normalizado = match.lower()
             if anglicismo_normalizado in self.diccionario:
-                glosario_set.add(f"{match.capitalize()}: {self.diccionario[anglicismo_normalizado]}")
+                definicion_ang = self.diccionario[anglicismo_normalizado][0]
+                glosario_set.add(f"{match.capitalize()}: {definicion_ang}")
 
         # Convertir el set a una lista y ordenarla alfabéticamente
         glosario_list = sorted(glosario_set)

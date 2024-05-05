@@ -2,9 +2,7 @@ import re
 import nltk
 from nltk.tokenize import word_tokenize, sent_tokenize
 from num2words import num2words
-
-
-nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
+#nltk.download('punkt')  # CARGAR LA PRIMERA VEZ QUE SE EJECUTA
 
 
 class Numero:
@@ -20,6 +18,31 @@ class Numero:
             200: "200", 300: '300', 400: '400', 500: '500', 600: '600', 700: '700', 800: '800', 900: '900',
             1000: 'mil'
         }
+
+        self.ordinales = {
+                    "1º": "primero", "1ª": "primera",
+                    "2º": "segundo", "2ª": "segunda",
+                    "3º": "tercero", "3ª": "tercera",
+                    "4º": "cuarto", "4ª": "cuarta",
+                    "5º": "quinto", "5ª": "quinta",
+                    "6º": "sexto", "6ª": "sexta",
+                    "7º": "séptimo", "7ª": "séptima",
+                    "8º": "octavo", "8ª": "octava",
+                    "9º": "noveno", "9ª": "novena",
+                    "10º": "décimo", "10ª": "décima",
+                    "primero": "primero", "primera": "primera", "primer": "primer", "segundo": "segundo", "segunda": "segunda",
+                    "tercer": "tercer", "tercero": "tercero", "tercera": "tercera",
+                    "primeros": "primeros", "primeras": "primeras", "segundos": "segundos", "segundas": "segundas",
+                    "terceros": "terceros", "terceras": "terceras",
+                    "cuarto": "cuarto", "cuarta": "cuarta", "cuartos": "cuartos", "cuartas": "cuartas",
+                    "quinto": "quinto", "quinta": "quinta",  "quintos": "quintos", "quintas": "quintas",
+                    "sexto": "sexto", "sexta": "sexta", "sextos": "sextos", "sextas": "sextas",
+                    "séptimo": "séptimo", "séptima": "séptima", "séptimos": "séptimos", "séptimas": "séptimas",
+                    "octavo": "octavo", "octava": "octava", "octavos": "octavos", "octavas": "octavas",
+                    "noveno": "noveno", "novena": "novena", "novenos": "novenos", "novenas": "novenas",
+                    "décimo": "décimo", "décima": "décima", "décimos": "décimos", "décimas": "décimas",
+                    }
+
         self.numeros_escritos = {
             #Se omiten los ordinales hasta el 10
             "cero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5,
@@ -54,19 +77,8 @@ class Numero:
             "noventa y nueve": 99,
             "cien": 100, "ciento": 100, "doscientos": 200, "trescientos": 300, "cuatrocientos": 400,
             "quinientos": 500, "seiscientos": 600, "600": 700, "700": 800, "800": 900,
-            # Se omiten ordinales hasta el 10
-            # "primero": 1, "primera": 1, "primer": 1, "segundo": 2, "segunda": 2, "según": 2,
-            # "tercer": 3, "tercero": 3,
-            # "tercera": 3,
-            # "primeros": 1, "primeras": 1, "segundos": 2, "segundas": 2,
-            # "terceros": 3, "terceras": 3,
-            # "cuarto": 4, "cuarta": 4, "quinto": 5, "quinta": 5,
-            # "sexto": 6, "sexta": 6, "sextos": 6, "sextas": 6,
-            # "séptimo": 7, "séptima": 7, "séptimos": 7, "séptimas": 7,
-            # "octavo": 8, "octava": 8, "noveno": 9, "novena": 9,
-            # "octavos": 8, "octavas": 8, "novenos": 9, "novenas": 9,
-            # "décimo": 10, "décima": 10, "décimos": 10, "décimas": 10,
-            "undécimo": 11, "undécima": 11, "undécimos": 11, "undécimas": 11,
+            # Se omiten ordinales hasta el 10 que se ponen en el diccionario de ordinales.
+                        "undécimo": 11, "undécima": 11, "undécimos": 11, "undécimas": 11,
             "duodécimo": 12, "duodécima": 12, "decimotercero": 13, "decimotercera": 13, "duodécimos": 12,
             "duodécimas": 12, "decimoterceros": 13, "decimoterceras": 13,
             "decimocuarto": 14, "decimocuarta": 14, "decimoquinto": 15, "decimoquinta": 15,
@@ -94,7 +106,38 @@ class Numero:
             "vigésimo_sextos": 26, "vigésimo_sextas": 26, "vigésimo_séptimos": 27, "vigésimo_séptimas": 27,
             "vigésimo_octavo": 28, "vigésimo_octava": 28, "vigésimo_noveno": 29, "vigésimo_novena": 29,
             "vigésimo_octavos": 28, "vigésimo_octavas": 28, "vigésimo_novenos": 29, "vigésimo_novenas": 29,
-            "trigésimo": 30, "trigésima": 30, "trigésimos": 30, "trigésimas": 30
+            "trigésimo": 30, "trigésima": 30, "trigésimos": 30, "trigésimas": 30,
+            "11º": 11, "11ª": 11,
+            "12º": 12, "12ª": 12, "13º": 13, "13ª": 13, "14º": 14, "14ª": 14,
+            "15º": 15, "15ª": 15, "16º": 16, "16ª": 16, "17º": 17, "17ª": 17,
+            "18º": 18, "18ª": 18, "19º": 19, "19ª": 19, "20º": 20, "20ª": 20,
+            "21º": 21, "21ª": 21, "22º": 22, "22ª": 22, "23º": 23, "23ª": 23,
+            "24º": 24, "24ª": 24, "25º": 25, "25ª": 25, "26º": 26, "26ª": 26,
+            "27º": 27, "27ª": 27, "28º": 28, "28ª": 28, "29º": 29, "29ª": 29,
+            "30º": 30, "30ª": 30, "31º": 31, "31ª": 31, "32º": 32, "32ª": 32,
+            "33º": 33, "33ª": 33, "34º": 34, "34ª": 34, "35º": 35, "35ª": 35,
+            "36º": 36, "36ª": 36, "37º": 37, "37ª": 37, "38º": 38, "38ª": 38,
+            "39º": 39, "39ª": 39, "40º": 40, "40ª": 40, "41º": 41, "41ª": 41,
+            "42º": 42, "42ª": 42, "43º": 43, "43ª": 43, "44º": 44, "44ª": 44,
+            "45º": 45, "45ª": 45, "46º": 46, "46ª": 46, "47º": 47, "47ª": 47,
+            "48º": 48, "48ª": 48, "49º": 49, "49ª": 49, "50º": 50, "50ª": 50,
+            "51º": 51, "51ª": 51, "52º": 52, "52ª": 52, "53º": 53, "53ª": 53,
+            "54º": 54, "54ª": 54, "55º": 55, "55ª": 55, "56º": 56, "56ª": 56,
+            "57º": 57, "57ª": 57, "58º": 58, "58ª": 58, "59º": 59, "59ª": 59,
+            "60º": 60, "60ª": 60, "61º": 61, "61ª": 61, "62º": 62, "62ª": 62,
+            "63º": 63, "63ª": 63, "64º": 64, "64ª": 64, "65º": 65, "65ª": 65,
+            "66º": 66, "66ª": 66, "67º": 67, "67ª": 67, "68º": 68, "68ª": 68,
+            "69º": 69, "69ª": 69, "70º": 70, "70ª": 70, "71º": 71, "71ª": 71,
+            "72º": 72, "72ª": 72, "73º": 73, "73ª": 73, "74º": 74, "74ª": 74,
+            "75º": 75, "75ª": 75, "76º": 76, "76ª": 76, "77º": 77, "77ª": 77,
+            "78º": 78, "78ª": 78, "79º": 79, "79ª": 79, "80º": 80, "80ª": 80,
+            "81º": 81, "81ª": 81, "82º": 82, "82ª": 82, "83º": 83, "83ª": 83,
+            "84º": 84, "84ª": 84, "85º": 85, "85ª": 85, "86º": 86, "86ª": 86,
+            "87º": 87, "87ª": 87, "88º": 88, "88ª": 88, "89º": 89, "89ª": 89,
+            "90º": 90, "90ª": 90, "91º": 91, "91ª": 91, "92º": 92, "92ª": 92,
+            "93º": 93, "93ª": 93, "94º": 94, "94ª": 94, "95º": 95, "95ª": 95,
+            "96º": 96, "96ª": 96, "97º": 97, "97ª": 97, "98º": 98, "98ª": 98,
+            "99º": 99, "99ª": 99
 
         }
 
@@ -103,8 +146,9 @@ class Numero:
         self.hour_pattern = re.compile(r'([01]?[0-9]|2[0-3]):([0-5][0-9])')
         self.phone_number_pattern = re.compile(r'\b\d{9}\b')
         self.number_pattern = re.compile(r'\b\d{1,3}(?:\.\d{3})*(?:,\d+)?\b|\b\d+(?:,\d+)?\b')
-        #self.percentage_pattern = re.compile(r'%')
         self.percentage_pattern = re.compile(r'\b(el\s+)?(\d{1,3}(?:,\d+)?%)', re.IGNORECASE)
+        self.pattern_ordinales = re.compile(r'\b(' + '|'.join(map(re.escape, self.ordinales.keys())) + r')\b', re.IGNORECASE)
+
 
     # Se crean marcas para los saltos de línea mediante las 2 funciones siguientes.
 
@@ -199,9 +243,17 @@ class Numero:
 
         return text
 
+    def reemplazar_ordinales_simples(self, texto):
+        def reemplazar(match):
+            item = match.group(
+                0).lower()  # Asegurarse de que la coincidencia sea en minúsculas para la búsqueda en el diccionario
+            return self.ordinales[item]  # Devuelve la forma textual del ordinal
+
+        return self.pattern_ordinales.sub(reemplazar, texto)
 
     def reemplazar_numeros(self, text):
         # Transformación inicial de ordinales compuestos y marcado de saltos de línea
+        text = self.reemplazar_ordinales_simples(text)
         text = self.sustituir_ordinales_compuestos(text)
         text = self.marcar_saltos_de_linea(text)
         text = self.transformar_numeros_escritos(text)
@@ -499,5 +551,12 @@ class Numero:
                     detected_elements['números escritos'].append(f"{word} ({numero_escrito})")
 
         return detected_elements
+
+
+mi_clase = Numero()
+texto_prueba = "Ella fue la 1ª en la carrera y él acabó 3º. Fue el décimo primero, en la general"
+texto_procesado = mi_clase.reemplazar_ordinales_simples(texto_prueba)
+print(texto_procesado)
+print(mi_clase.reemplazar_numeros(texto_prueba))
 
 
