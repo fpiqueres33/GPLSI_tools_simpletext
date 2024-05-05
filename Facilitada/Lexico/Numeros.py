@@ -553,10 +553,3 @@ class Numero:
         return detected_elements
 
 
-mi_clase = Numero()
-texto_prueba = "Ella fue la 1ª en la carrera y él acabó 3º. Fue el décimo primero, en la general"
-texto_procesado = mi_clase.reemplazar_ordinales_simples(texto_prueba)
-print(texto_procesado)
-print(mi_clase.reemplazar_numeros(texto_prueba))
-
-
