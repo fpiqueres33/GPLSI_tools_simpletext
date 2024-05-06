@@ -60,7 +60,7 @@ class Adverbios:
         adverbios_mente = []
         for token in doc:
             if token.text.lower() in self.diccionario_adverbios or (
-                    token.text.endswith("mente") and token.pos_ == "ADJ"):
+                    token.text.endswith("mente") and token.pos_ == "ADV"):
                 # Añadir el texto del token y su etiqueta POS.
                 adverbios_mente.append((token.text, token.pos_))
         return adverbios_mente
