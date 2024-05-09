@@ -51,8 +51,9 @@ class Adverbios:
             "realmente": "en verdad",
             "indudablemente": "sin lugar a dudas",
             "evidentemente": "es evidente",
-            "apasionadamente": "de forma apasionada"
-
+            "apasionadamente": "de forma apasionada",
+            "perfectamente": "muy bien",
+            "instantáneamente": "al instante"
         }
 
     def detectar_adverbios_mente(self, texto):

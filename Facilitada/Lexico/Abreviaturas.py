@@ -1,12 +1,12 @@
 import re
 
 class Abreviaturas:
-    def __init__(self, diccionario = None):
-        if diccionario == None:
+    def __init__(self, diccionario=None):
+        if diccionario==None:
             diccionario = {
-                "(a)": "alias", "a/a":"aire acondicionado", "A/A":" a la atención", "aa. vv.":"autores varios",
-            "AA.VV.":"autores varios", "Abg.": "abogado", "Abg.do":"abogado", "Abg.da":"abogada",
-            "a.C.":"antes de Cristo", "a/c": "a cuenta", "acept.":"aceptación", "a. de C.":"antes de Cristo",
+            "(a)": "alias", "a/a":"aire acondicionado", "A/A": " a la atención", "aa. vv.":"autores varios",
+            "AA.VV.":"autores varios", "Abg.": "abogado", "Abg.do": "abogado", "Abg.da":"abogada",
+            "a.C.":"antes de Cristo", "a/c": "a cuenta", "acept.": "aceptación", "a. de C.":"antes de Cristo",
             "a. de J. C.":"antes de Jesucristo",
             "d.C.":"después de Cristo", "admón.":"administración",
             "adm. or":"administrador", "adm.ora":"administradora",
@@ -25,8 +25,8 @@ class Abreviaturas:
             "b.c.c.":"con copia oculta", "Bco.":"Banco",
             "Bibl.":"biblioteca", "b. l. m.":"besa la mano", "blvr.":"bulevar", "Bmo.":"Beatísimo",
             "Bma.":"Beatísima", "b/n":"blanco y negro", "Bo.":"barrio", "B.º":"barrio",
-            "bol.":"boletín", "Br.":"bachiller", "Brig.":"Brigada", "c.":"calle", "c/":"calle", "cap.":"capítulo",
-            "Cap.":"capital", "Cap. Fed.":"Capital Federal", "cap.º":"capítulo", "Card.":"cardenal",
+            "bol.":"boletín", "Br.":"bachiller", "Brig.":"Brigada", "c.": "calle", "c/": "Calle", "cap.":" capítulo",
+            "Cap.":"capital", "Cap. Fed.":"Capital Federal", "cap.º":"capítulo", "Card.": "Cardenal",
             "C.C.": "casilla de correo", "c/c":"cuenta corriente", "cta.cte.":"cuenta corriente",
             "c.c.o.":"con copia oculta", "c.c.p.":"con copia para", "Cdad.":"ciudad", "cdra.":"cuadra",
             "c. e.":"correo electrónico", "cént.":"céntimo", "cts.":"céntimos", "c.f.s.":"coste, flete y seguro",
@@ -134,40 +134,11 @@ class Abreviaturas:
             "MSF": "Médicos Sin Fronteras", "FMI": "Fondo Monetario Internacional",
             "BCE": "Banco Central Europeo", "IRPF": "Impuesto sobre la Renta de las Personas Físicas",
             "OPV": "Oferta Pública de Acciones", "ISBN": "Sistema Internacional de Numeración de Libros",
-                "ONG": "Organización No Gubernamental", "CD": "Disco Compacto", "IPC": "Índice de Precios al Consumo",
-                "OMS": "Organización Mundial de la Salud", "CPU": "Unidad Central de Procesamiento",
-                "CGPJ": "Consejo General del Poder Judicial", "I+D+i": "Investigación, Desarrollo e Innovación",
-                "3D" : "Tres dimensiones", "VIH": "Virus de Inmunodeficiencia Humana",
-                "DNI": "Documento nacional de Identidad",
-                "ALCA": "Área de Libre Comercio de las Américas",
-                "AMPA": "Asociación de Madres y Padres de Alumnos",
-                "AVE": "Alta Velocidad Española",
-                "CONACYT": "Consejo Nacional de Ciencia y Tecnología",
-                "ERE": "Expediente de Regulación de Empleo",
-                "ERTE": "Expediente de Regulación Temporal de Empleo",
-                "FIFA": "Federación Internacional de Fútbol Asociación",
-                "MEC": "Ministerio de Educación y Ciencia",
-                "MERCOSUR": "Mercando Común del Sur",
-                "Mercosus": "Mercado Común del Sur",
-                "NIF": "Número de Identificación Fiscal",
-                "NIE": "Número de Identificación de Extranjero",
-                "ONU": "Organización de Naciones Unidas",
-                "OTAN": "Organización del Tratado del Atlántico Norte",
-                "PIB": "Producto Interior Bruto",
-                "RR.HH": "Recursos Humanos",
-                "RR.PP.": "Relaciones Públicas",
-                "TIC": "Tecnologías de la Información",
-                "UNED": "Universidad Nacional de Educación a Distancia",
-                "VOSE": "Versión Original Subtitulada al Español",
-                "VOSI": "Versión Original Subtitulada al Inglés",
-                "EDUSI": "Estrategia de Desarrollo Urbano Sostenible e Integrado",
-                "RTVE": "Radio Televisión Española",
-                "ITV": "Inspección Técnica de Vehículos",
-                "JJOO": "Juegos Olímpicos",
-                "LGTB": "Lesbianas, Gais, Transexuales y Bisexuales",
-                "RNE": "Radio Nacional de España",
-                "UGT": "Unión General de Trabajdores",
-                "TV3": "Televisión Catalana"
+            "ONG": "Organización No Gubernamental", "CD": "Disco Compacto", "IPC": "Índice de Precios al Consumo",
+            "OMS": "Organización Mundial de la Salud", "CPU": "Unidad Central de Procesamiento",
+            "CGPJ": "Consejo General del Poder Judicial", "I+D+i": "Investigación, Desarrollo e Innovación",
+            "3D": "Tres dimensiones", "VIH": "Virus de Inmunodeficiencia Humana",
+            "DNI": "Documento nacional de Identidad",
 
             }
 

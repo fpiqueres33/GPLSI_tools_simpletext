@@ -2,6 +2,7 @@ from Facilitada.Lexico.Adverbios import Adverbios
 from Facilitada.Lexico.Numeros import Numero
 from Facilitada.Lexico.Superlativos import Superlativos
 from Facilitada.Lexico.Abreviaturas import Abreviaturas
+from Facilitada.Lexico.Acronimos import Acronimos
 from Facilitada.Lexico.Romanos2 import Romanos2
 from Facilitada.Lexico.Anglicismos import Anglicismos
 from Facilitada.Lexico.PalabrasLargas import PalabrasLargas
@@ -9,7 +10,8 @@ from Facilitada.Lexico.PalabrasDificiles import PalabrasDificiles
 
 class API_Lexico:
     def __init__(self, habilitar_adverbios=True, habilitar_superlativos=True, habilitar_numeros=True,
-                 habilitar_romanos=True, habilitar_abreviaturas=True, habilitar_anglicismos = True,
+                 habilitar_romanos=True, habilitar_abreviaturas=True, habilitar_acronimos=True,
+                 habilitar_anglicismos=True,
                  habilitar_palabras_largas=True, habilitar_palabras_dificiles=True ):
         # Configuraciones iniciales para cada tipo de transformación
         self.habilitar_adverbios = habilitar_adverbios
@@ -17,6 +19,7 @@ class API_Lexico:
         self.habilitar_numeros = habilitar_numeros
         self.habilitar_romanos = habilitar_romanos
         self.habilitar_abreviaturas = habilitar_abreviaturas
+        self.habilitar_acronimos = habilitar_acronimos
         self.habilitar_anglicismos = habilitar_anglicismos
         self.habilitar_palabras_largas = habilitar_palabras_largas
         self.habilitar_palabras_dificiles = habilitar_palabras_dificiles
@@ -27,6 +30,7 @@ class API_Lexico:
         self.numeros = Numero() if habilitar_numeros else None
         self.romanos = Romanos2() if habilitar_romanos else None
         self.abreviaturas = Abreviaturas() if habilitar_abreviaturas else None
+        self.acronimos = Acronimos() if habilitar_acronimos else None
         self.anglicismos = Anglicismos() if habilitar_anglicismos else None
         self.palabras_largas = PalabrasLargas() if habilitar_palabras_largas else None
         self.palabras_dificiles = PalabrasDificiles() if habilitar_palabras_dificiles else None
@@ -39,6 +43,9 @@ class API_Lexico:
 
         if self.habilitar_abreviaturas and self.abreviaturas:
             texto_transformado = self.abreviaturas.sustituir_abreviaturas(texto_transformado)
+
+        if self.habilitar_acronimos and self.acronimos:
+            texto_transformado = self.acronimos.sustituir_acronimos(texto_transformado)
 
         if self.habilitar_anglicismos and self.anglicismos:
             glosario_lines += self.anglicismos.glosario_anglicismos(texto)
@@ -71,6 +78,9 @@ class API_Lexico:
         if self.habilitar_abreviaturas and self.abreviaturas:
             detecciones['abreviaturas'] = self.abreviaturas.detectar_abreviaturas(texto)
 
+        if self.habilitar_acronimos and self.acronimos:
+            detecciones['acrónimos'] = self.acronimos.detectar_acronimos(texto)
+
         if self.habilitar_anglicismos and self.anglicismos:
             detecciones['anglicismos'] = self.anglicismos.detectar_anglicismos(texto)
 
@@ -81,7 +91,7 @@ class API_Lexico:
             detecciones['superlativos'] = self.superlativos.detectar_superlativos(texto)
 
         if self.habilitar_numeros and self.numeros:
-            detecciones['numeros'] = self.numeros.detectar_numeros(texto)
+            detecciones['números'] = self.numeros.detectar_numeros(texto)
 
         if self.habilitar_romanos and self.romanos:
             detecciones['romanos'] = self.romanos.detectar_romanos(texto)
@@ -90,6 +100,8 @@ class API_Lexico:
             detecciones['palabras_largas'] = self.palabras_largas.detectar_palabras_largas(texto)
 
         if self.habilitar_palabras_dificiles and self.palabras_dificiles:
-            detecciones['palabras_dificiles'] = self.palabras_dificiles.detectar_palabras_dificiles(texto)
+            detecciones['palabras_difíciles'] = self.palabras_dificiles.detectar_palabras_dificiles(texto)
 
         return detecciones
+
+
