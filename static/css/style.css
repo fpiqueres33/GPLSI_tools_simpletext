@@ -5,13 +5,20 @@
 
 /* Estilos específicos para las columnas */
 .col-md-2 {
-    flex: 0 0 20%; /* 20% del espacio disponible en pantallas medianas a grandes */
-    max-width: 20%;
+    flex: 0 0 14%; /* 14 del espacio disponible en pantallas medianas a grandes */
+    max-width: 14%;
+    font-size: 0.8rem; /* Tamaño de la fuente reducido */
 }
 
+/* Reducir el tamaño de las etiquetas dentro de la columna más pequeña */
+.col-md-2 .form-check-label {
+    font-size: 0.95rem; /* Establece un tamaño de fuente más pequeño para las etiquetas dentro de .col-md-2 */
+}
+
+
 .col-md-4 {
-    flex: 0 0 40%; /* 40% del espacio disponible en pantallas medianas a grandes */
-    max-width: 40%;
+    flex: 0 0 43%; /* 40% del espacio disponible en pantallas medianas a grandes */
+    max-width: 43%;
 }
 
 /* Estilo para los jumbotrones, usados en las columnas de texto y resultados */
@@ -19,6 +26,7 @@
     padding: 20px;
     background-color: #f8f9fa; /* Fondo claro para destacar el área */
     border-radius: 5px; /* Bordes redondeados para mejor estética */
+    min-height: 650px /* Altura mínima para uniformidad */
 }
 
 /* Estilos para el contenedor de opciones */

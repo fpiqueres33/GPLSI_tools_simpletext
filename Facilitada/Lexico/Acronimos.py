@@ -129,6 +129,12 @@ class Acronimos:
         # Revertir los marcadores a saltos de línea, manejar correctamente los dobles saltos de línea
         resultado = resultado.replace(f' {self.marker} {self.marker} ', '\n\n')
         resultado = resultado.replace(f' {self.marker} ', '\n')
+        if resultado.endswith(self.marker):
+            resultado = resultado[:-len(self.marker)].strip()
+
+        # Asegurar que no queden marcadores en el texto
+        resultado = resultado.replace(self.marker, '')
+
         return resultado
 
     def detectar_acronimos(self, texto):

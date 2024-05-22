@@ -37,7 +37,9 @@ class API_Lexico:
 
     def transformar_lexico(self, texto):
         # Aquí se aplicarán las transformaciones según la configuración
-        texto_transformado = "\n"+texto
+        texto_transformado = "\n"+"\n"+"\n"+texto
+        # Revertir los marcadores a saltos de línea, manejar correctamente los dobles saltos de línea
+
         glosario_lines = []
         glosario = ""
 
