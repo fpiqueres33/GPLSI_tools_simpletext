@@ -5,40 +5,28 @@
     <title>Clear Text</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
-
 </head>
 <body>
 <div class="container mt-5">
-    <!-- Logo en el borde superior izquierdo -->
-    <div class="logo">
-        <a href="https://gplsi.dlsi.ua.es/proyectos/cleartext/">
-            <img src="/static/Logo_ClearText.png" alt="Logo" style="height: 80px;">
-        </a>
-    </div>
-</div>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-6">
-            <h5 class="mb-4">Cargar archivo de texto</h5>
-            <form action="/" class="mb-3" enctype="multipart/form-data" method="post">
-                <div class="form-group">
-                    <input class="form-control mb-4" name="file" type="file">
-                </div>
-                <!-- Textarea para entrada de texto directa -->
-                <div class="form-group">
-                    <h6 label
-                        for="inputText">Texto de entrada libre:</h6 label>
-                    <textarea class="form-control" id="inputText" name="inputText" rows="15">{{ input_text }}</textarea>
-                </div>
-                <!-- Añadir aquí las casillas de verificación -->
-                <div class="options-container mt-3">
+    <form action="/" class="mb-3" enctype="multipart/form-data" method="post">
+        <div class="row">
+            <!-- Logo en el borde superior izquierdo y en todas las resoluciones-->
+            <div class="col-12 mb-3 text-center">
+                <a href="https://gplsi.dlsi.ua.es/proyectos/cleartext/">
+                    <img src="/static/Logo_ClearText.png" alt="Logo" style="height: 80px;">
+                </a>
+            </div>
+
+            <!-- Columna de opciones -->
+            <div class="col-md-2 col-12">
+                <div class="options-container">
                     <!-- Grupo Léxico -->
-                    <div class="form-check" style="margin-left: 0;">
+                    <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="useLexico" checked>
                         <label class="form-check-label h6" for="useLexico">Léxico</label>
                     </div>
                     <div id="optionsLexico" style="display:none">
-
+                        <!-- Opciones Léxicas Aquí -->
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="useAdverbios" name="useAdverbios"
                                    checked>
@@ -73,12 +61,14 @@
                             <label class="form-check-label" for="useAnglicismos">Anglicismos</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="usePalabrasLargas" name="usePalabrasLargas"
+                            <input class="form-check-input" type="checkbox" id="usePalabrasLargas"
+                                   name="usePalabrasLargas"
                                    checked>
                             <label class="form-check-label" for="usePalabrasLargas">Palabras largas</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="usePalabrasDificiles" name="usePalabrasDificiles"
+                            <input class="form-check-input" type="checkbox" id="usePalabrasDificiles"
+                                   name="usePalabrasDificiles"
                                    checked>
                             <label class="form-check-label" for="usePalabrasDificiles">Palabras difíciles</label>
                         </div>
@@ -89,70 +79,77 @@
                             <label class="form-check-label" for="useNominalizacion">Nominalización</label>
                         </div>
                     </div>
-                    <div class="form-check" style="margin-left: 0;">
+
+                    <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="useSintactico" checked>
                         <label class="form-check-label h6" for="useSintactico">Sintáctico</label>
                     </div>
                     <div id="optionsSintactico" style="display:none">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="useComplejos" name="useComplejos"
-                                   checked>
-                            <label class="form-check-label" for="useComplejos">Complejos</label>
-                        </div>
+                        <!-- Opciones Sintácticas Aquí -->
+                        <div id="optionsSintactico" style="display:none">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="useComplejos" name="useComplejos"
+                                       checked>
+                                <label class="form-check-label" for="useComplejos">Complejos</label>
+                            </div>
 
-                        <!-- no-process-start -->
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="useImpersonal" name="useImpersonal"
-                                   checked>
-                            <label class="form-check-label" for="useImpersonal">Impersonal</label>
+                            <!-- no-process-start -->
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="useImpersonal" name="useImpersonal"
+                                       checked>
+                                <label class="form-check-label" for="useImpersonal">Impersonal</label>
+                            </div>
+                            <!-- no-process-end -->
                         </div>
-                        <!-- no-process-end -->
                     </div>
                     <div class="button-container mt-4 mb-2">
-                        <!-- Espaciado agregado arriba y abajo del contenedor de botones -->
-                        <button type="button" id="botonDislexia" class="btn btn-primary btn-sm mb-2 w-100">Dislexia</button>
-                        <!-- Botón más pequeño con espaciado abajo -->
-                        <button type="button" id="botonTrastorno" class="btn btn-secondary btn-sm w-100">Trastorno Atención</button>
-                        <!-- Botón más pequeño sin espaciado abajo (separación debido al botón anterior) -->
+                        <button type="button" id="botonDislexia" class="btn btn-primary btn-sm mb-2 w-100">Dislexia
+                        </button>
+                        <button type="button" id="botonTrastorno" class="btn btn-secondary btn-sm w-100">Trastorno
+                            Atención
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Checkbox para Mostrar Detección. Se oculta-->
-                    <div class="form-check mb-2 text-center" id="divMostrarDeteccion">
-                        <input class="form-check-input" type="checkbox" id="mostrarDeteccion" name="mostrarDeteccion">
-                        <label class="form-check-label" for="mostrarDeteccion">
-                            <b>Mostrar Detección</b>
-                        </label>
+            <!-- Columna de entrada de texto -->
+            <div class="col-md-4 col-12">
+                <div class="jumbotron p-3">
+                    <h5 class="mb-4">Cargar archivo de texto</h5>
+                    <div class="form-group">
+                        <input class="form-control mb-4" name="file" type="file">
                     </div>
-
-                <div class="text-center">
-                    <button class="btn btn-secondary mr-2" name="action" type="submit" value="resumen"
-                            onclick="resetBorder();">Resumen
-                    </button>
-                    <button class="btn btn-secondary" name="action" type="submit" value="simplify"
-                            onclick="prepareBorderChange();">Lectura Facilitada
-                    </button>
-                    <button class="btn btn-secondary" name="action" type="submit" value="Topicos" id="botonTopicos">Tópicos
-                    </button>
-
-
+                    <div class="form-group">
+                        <textarea class="form-control" id="inputText" name="inputText"
+                                  rows="15">{{ input_text }}</textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-secondary mr-2" name="action" type="submit" value="resumen">Resumen
+                        </button>
+                        <button class="btn btn-secondary" name="action" type="submit" value="simplify">Lectura
+                            Facilitada
+                        </button>
+                        <button class="btn btn-secondary" name="action" type="submit" value="Topicos">Tópicos</button>
+                    </div>
                 </div>
-            </form>
-        </div>
-        <!-- Textarea para mostrar resultados en columna -->
-        <div class="col-md-6 mt-5">
-            <div class="text-center>">
-                <textarea class="form-control" id="resultText" readonly rows="18">{{ result_text }}</textarea>
             </div>
-            <div class="text-center mt-4">
-                <button onclick="downloadText()" class="btn btn-primary">Descargar</button>
-                <a href="/" class="btn btn-secondary">Volver</a>
-            </div>
-        </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/static/js/scripts.js"></script>
+            <!-- Columna para mostrar resultados -->
+            <div class="col-md-4 col-12">
+                <div class="jumbotron p-3">
+                    <textarea class="form-control" id="resultText" readonly rows="18">{{ result_text }}</textarea>
+                    <div class="text-center mt-4">
+                        <button onclick="downloadText()" class="btn btn-primary">Descargar</button>
+                        <a href="/" class="btn btn-secondary">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/static/js/scripts.js"></script>
 </body>
 </html>

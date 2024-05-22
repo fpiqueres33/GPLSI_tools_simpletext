@@ -190,4 +190,3 @@ function saveCurrentState() {
 
 // Agregar el guardado de estado al botón de Lectura Facilitada
 document.querySelector('button[value="simplify"]').addEventListener('click', saveCurrentState);
-
